@@ -3,7 +3,7 @@
   --color-primary: #ffffff;
   --color-secondary: #a855f7;
   --color-accent: #3b82f6;
-  --color-background: #0a0b14;
+  --color-background: linear-gradient(0deg, #000000 0%, #1e222f 100%);
   --color-surface: #1a1b2e;
   --color-text-primary: #ffffff;
   --color-text-secondary: #94a3b8;
@@ -23,6 +23,7 @@
   --font-primary: var(--font-pp-agrandir);
   --font-secondary: var(--font-graphik);
   --font-body: var(--font-sohne);
+  --font-bagoss: var(--font-bagoss);
 
   /* Spacing */
   --spacing-xs: 0.25rem; /* 4px */

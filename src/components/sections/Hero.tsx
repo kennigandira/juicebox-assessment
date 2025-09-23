@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { LottieAnimation } from '@/components/animations/LottieAnimation';
+import LottieWithNoiseMask from '@/components/animations/LottieWithNoiseMask';
 import { Button } from '@/components/ui';
 import { ArrowIcon, RefreshIcon } from '@/components/icons';
 import styles from './Hero.module.css';
@@ -52,7 +52,14 @@ export function Hero({ onCtaClick }: HeroProps) {
 
           {/* Lottie Animation */}
           <div className={styles.lottieContainer}>
-            <LottieAnimation
+            <div className={styles.heroAnimationTexts}>
+              <p>WA businesses feel confident about future growth</p>
+              <p>AI can&apos;t replace real creativity</p>
+              <p>Sales success is driven by process</p>
+              <p>Human connection drives WA business</p>
+              <p>The primary barrier to digital transformation is financial investment</p>
+            </div>
+            <LottieWithNoiseMask
               className="w-full h-full"
               loop={true}
               autoplay={true}
@@ -80,24 +87,17 @@ export function Hero({ onCtaClick }: HeroProps) {
             <p>The primary barrier to digital transformation is financial investment</p>
           </div> */}
 
-          <h1 ref={titleRef} className={styles.title}>
+          <h2 ref={titleRef} className={styles.title}>
             Compare your thoughts on
-            <span className={styles.titleGradient}>technology</span>
+            <span className={styles.titleGradient}> technology </span>
             <span className={styles.titleWhite}>with current industry opinions.</span>
-          </h1>
+          </h2>
 
           <div ref={buttonRef} className={styles.buttonContainer}>
             <button onClick={handleCtaClick} className={styles.ctaButton}>
               Get a reality check
             </button>
           </div>
-        </div>
-      </div>
-
-      {/* Scroll indicator */}
-      <div className={styles.scrollIndicator}>
-        <div className={styles.scrollArrow}>
-          <ArrowIcon direction="down" className={styles.scrollIcon} aria-hidden={true} />
         </div>
       </div>
     </section>

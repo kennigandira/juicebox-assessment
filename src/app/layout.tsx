@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { ppAgrandir, graphik, sohne } from './fonts';
+import { ppAgrandir, graphik, sohne, bagoss } from './fonts';
 
 export const metadata: Metadata = {
   title: 'Juicebox Frontend Assessment',
@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${ppAgrandir.variable} ${graphik.variable} ${sohne.variable} antialiased`}>
+      <body className={`${ppAgrandir.variable} ${graphik.variable} ${sohne.variable} ${bagoss.variable} antialiased`}>
         {children}
       </body>
     </html>

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Lottie, { LottieRefCurrentProps } from 'lottie-react';
+import styles from './Lottie.module.css';
 
 interface LottieAnimationProps {
   animationData?: Record<string, unknown>;
@@ -68,12 +69,6 @@ export function LottieAnimation({
         });
     }
   }, [animationData, animationPath]);
-
-  useEffect(() => {
-    if (lottieRef.current && speed !== 1) {
-      lottieRef.current.setSpeed(speed);
-    }
-  }, [speed]);
 
   if (loading) {
     return (
@@ -158,8 +153,8 @@ export function LottieAnimation({
           lottieRef={lottieRef}
           animationData={animation}
           className={`${className} relative z-0`}
-          loop={loop}
-          autoplay={autoplay}
+          // loop={loop}
+          // autoplay={autoplay}
           onComplete={onComplete}
           onLoopComplete={onLoopComplete}
           rendererSettings={{
@@ -168,6 +163,8 @@ export function LottieAnimation({
             hideOnTransparent: true,
           }}
         />
+
+        <img src="./cube-colors.png" alt="" className={styles.layerMask} />
       </div>
     </div>
   );

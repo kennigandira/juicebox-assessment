@@ -1,0 +1,12 @@
+.layerMask {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: -5px;
+  left: 0;
+  object-fit: contain;
+  rotate: 180deg;
+  mix-blend-mode: hard-light;
+  mask: radial-gradient(circle at center, white 45%, transparent 50%);
+  -webkit-mask: radial-gradient(circle at center, white 45%, transparent 50%);
+}

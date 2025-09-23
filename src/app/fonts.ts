@@ -50,3 +50,15 @@ export const sohne = localFont({
   variable: '--font-sohne',
   display: 'swap',
 });
+
+export const bagoss = localFont({
+  src: [
+    {
+      path: '../../public/fonts/figmafonts/Bagoss/BagossTRIALVF.ttf',
+      weight: '100 900',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-bagoss',
+  display: 'swap',
+});
