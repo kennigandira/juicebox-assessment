@@ -13,6 +13,7 @@
     "type-check": "npx tsc --noEmit"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.2",
     "@hookform/resolvers": "^5.2.2",
     "@studio-freight/lenis": "^1.0.42",
     "clsx": "^2.1.1",

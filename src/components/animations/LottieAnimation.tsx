@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import Lottie, { LottieRefCurrentProps } from 'lottie-react';
 import styles from './Lottie.module.css';
 
@@ -26,15 +27,15 @@ export function LottieAnimation({
   animationData,
   animationPath = '/animations/JB2G_Lottie.json',
   className = '',
-  loop = true,
-  autoplay = true,
-  speed = 1,
+  loop: _loop = true,
+  autoplay: _autoplay = true,
+  speed: _speed = 1,
   colorTheme = 'default',
-  enhanceColors = false,
+  enhanceColors: _enhanceColors = false,
   lightEffect = 'none',
   glowIntensity = 'medium',
-  lightColor,
-  pulseSpeed = 2,
+  lightColor: _lightColor,
+  pulseSpeed: _pulseSpeed = 2,
   enableHoverGlow = false,
   onComplete,
   onLoopComplete,
@@ -94,55 +95,56 @@ export function LottieAnimation({
     );
   }
 
-  const getColorThemeStyles = () => {
-    switch (colorTheme) {
-      case 'purple':
-        return 'filter hue-rotate-[280deg] saturate-150 brightness-110';
-      case 'blue':
-        return 'filter hue-rotate-[200deg] saturate-125 brightness-105';
-      case 'gradient':
-        return 'filter hue-rotate-[260deg] saturate-140 brightness-115 contrast-110';
-      default:
-        return '';
-    }
-  };
+  // Style utility functions available but not currently used in this implementation
+  // const getColorThemeStyles = () => {
+  //   switch (colorTheme) {
+  //     case 'purple':
+  //       return 'filter hue-rotate-[280deg] saturate-150 brightness-110';
+  //     case 'blue':
+  //       return 'filter hue-rotate-[200deg] saturate-125 brightness-105';
+  //     case 'gradient':
+  //       return 'filter hue-rotate-[260deg] saturate-140 brightness-115 contrast-110';
+  //     default:
+  //       return '';
+  //   }
+  // };
+  //
+  // const getLightEffectStyles = () => {
+  //   switch (lightEffect) {
+  //     case 'soft':
+  //       return glowIntensity === 'low'
+  //         ? 'soft-glow opacity-70'
+  //         : glowIntensity === 'high'
+  //           ? 'intense-glow'
+  //           : 'soft-glow';
+  //     case 'neon':
+  //       return `neon-flicker ${glowIntensity === 'high' ? 'brightness-125' : ''}`;
+  //     case 'pulse':
+  //       return `light-pulse ${glowIntensity === 'high' ? 'brightness-110' : ''}`;
+  //     case 'aurora':
+  //       return `aurora-glow ${glowIntensity === 'high' ? 'saturate-150' : ''}`;
+  //     case 'spotlight':
+  //       return glowIntensity === 'high' ? 'spotlight-shimmer' : 'spotlight-effect';
+  //     default:
+  //       return '';
+  //   }
+  // };
+  //
+  // const getAnimationClasses = () => {
+  //   const classes = [];
+  //
+  //   if (enableHoverGlow) {
+  //     classes.push('hover:brightness-125 hover:saturate-150 transition-all duration-300');
+  //   }
+  //
+  //   return classes.join(' ');
+  // };
 
-  const getLightEffectStyles = () => {
-    switch (lightEffect) {
-      case 'soft':
-        return glowIntensity === 'low'
-          ? 'soft-glow opacity-70'
-          : glowIntensity === 'high'
-            ? 'intense-glow'
-            : 'soft-glow';
-      case 'neon':
-        return `neon-flicker ${glowIntensity === 'high' ? 'brightness-125' : ''}`;
-      case 'pulse':
-        return `light-pulse ${glowIntensity === 'high' ? 'brightness-110' : ''}`;
-      case 'aurora':
-        return `aurora-glow ${glowIntensity === 'high' ? 'saturate-150' : ''}`;
-      case 'spotlight':
-        return glowIntensity === 'high' ? 'spotlight-shimmer' : 'spotlight-effect';
-      default:
-        return '';
-    }
-  };
-
-  const getAnimationClasses = () => {
-    const classes = [];
-
-    if (enableHoverGlow) {
-      classes.push('hover:brightness-125 hover:saturate-150 transition-all duration-300');
-    }
-
-    return classes.join(' ');
-  };
-
-  const enhancementStyles = enhanceColors ? 'drop-shadow-lg brightness-110 saturate-125' : '';
-
-  const colorStyles = getColorThemeStyles();
-  const lightStyles = getLightEffectStyles();
-  const animationClasses = getAnimationClasses();
+  // Style calculations available but not currently used in this implementation
+  // const enhancementStyles = enhanceColors ? 'drop-shadow-lg brightness-110 saturate-125' : '';
+  // const colorStyles = getColorThemeStyles();
+  // const lightStyles = getLightEffectStyles();
+  // const animationClasses = getAnimationClasses();
 
   return (
     <div>
@@ -162,7 +164,13 @@ export function LottieAnimation({
           }}
         />
 
-        <img src="./cube-colors.png" alt="" className={styles.layerMask} />
+        <Image
+          src="/cube-colors.png"
+          alt="Cube Colors"
+          className={styles.layerMask}
+          width={400}
+          height={400}
+        />
       </div>
     </div>
   );

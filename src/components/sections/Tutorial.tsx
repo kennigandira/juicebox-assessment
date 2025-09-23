@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, EffectFade, Autoplay } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
-import { Button } from '@/components/ui';
 import { gsap } from 'gsap';
 import styles from './Tutorial.module.css';
 

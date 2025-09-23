@@ -9,6 +9,9 @@ export type { BaseIconProps, IconSize, IconColor, IconVariant, IconConfig } from
 export { ArrowIcon } from './icons/ArrowIcon';
 export type { ArrowIconProps } from './icons/ArrowIcon';
 
+export { ArrowLeftIcon } from './icons/ArrowLeftIcon';
+export type { ArrowLeftIconProps } from './icons/ArrowLeftIcon';
+
 export { CheckIcon } from './icons/CheckIcon';
 export { CloseIcon } from './icons/CloseIcon';
 export { SpinnerIcon } from './icons/SpinnerIcon';

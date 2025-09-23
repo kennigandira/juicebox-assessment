@@ -12,11 +12,7 @@ export function ExampleUsageGradientMask() {
         <div className="border border-white/20 rounded-lg p-4">
           <h2 className="text-lg text-white mb-4">Overlay (Default)</h2>
           <div className="w-full h-64">
-            <LottieWithGradientMask
-              className="w-full h-full"
-              blendMode="overlay"
-              opacity={0.7}
-            />
+            <LottieWithGradientMask className="w-full h-full" blendMode="overlay" opacity={0.7} />
           </div>
         </div>
 
@@ -24,11 +20,7 @@ export function ExampleUsageGradientMask() {
         <div className="border border-white/20 rounded-lg p-4">
           <h2 className="text-lg text-white mb-4">Screen</h2>
           <div className="w-full h-64">
-            <LottieWithGradientMask
-              className="w-full h-full"
-              blendMode="screen"
-              opacity={0.6}
-            />
+            <LottieWithGradientMask className="w-full h-full" blendMode="screen" opacity={0.6} />
           </div>
         </div>
 
@@ -36,11 +28,7 @@ export function ExampleUsageGradientMask() {
         <div className="border border-white/20 rounded-lg p-4">
           <h2 className="text-lg text-white mb-4">Multiply</h2>
           <div className="w-full h-64">
-            <LottieWithGradientMask
-              className="w-full h-full"
-              blendMode="multiply"
-              opacity={0.8}
-            />
+            <LottieWithGradientMask className="w-full h-full" blendMode="multiply" opacity={0.8} />
           </div>
         </div>
 

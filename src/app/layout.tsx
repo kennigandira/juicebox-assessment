@@ -15,7 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${ppAgrandir.variable} ${graphik.variable} ${sohne.variable} ${bagoss.variable} antialiased`}>
+      <body
+        className={`${ppAgrandir.variable} ${graphik.variable} ${sohne.variable} ${bagoss.variable} antialiased`}
+      >
         {children}
       </body>
     </html>

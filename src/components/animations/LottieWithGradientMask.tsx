@@ -34,9 +34,9 @@ export function LottieWithGradientMask({
   loop = true,
   autoplay = true,
   speed = 1,
-  gradientImageUrl = '/cube-colors.png',
-  blendMode = 'overlay',
-  opacity = 0.7,
+  gradientImageUrl: _gradientImageUrl = '/cube-colors.png',
+  blendMode: _blendMode = 'overlay',
+  opacity: _opacity = 0.7,
   onComplete,
   onLoopComplete,
 }: LottieWithGradientMaskProps) {
@@ -119,6 +119,8 @@ export function LottieWithGradientMask({
     <div className={`relative ${className}`}>
       {/* Lottie Animation */}
       <div className={styles.lottie}>{View}</div>
+
+      <div className={styles.layerMask}></div>
 
       {/* Gradient Overlay */}
       {/* <img
