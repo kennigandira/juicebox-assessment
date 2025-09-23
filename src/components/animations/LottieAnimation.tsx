@@ -144,11 +144,9 @@ export function LottieAnimation({
   const lightStyles = getLightEffectStyles();
   const animationClasses = getAnimationClasses();
 
-  console.debug('====CEK SINI BOS', lightEffect);
-
   return (
-    <div className={` transition-all duration-500`}>
-      <div className={`${lightStyles} relative`}>
+    <div>
+      <div className={styles.layerMask}>
         <Lottie
           lottieRef={lottieRef}
           animationData={animation}

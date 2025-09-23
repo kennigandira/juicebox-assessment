@@ -7,6 +7,7 @@ import LottieWithNoiseMask from '@/components/animations/LottieWithNoiseMask';
 import { Button } from '@/components/ui';
 import { ArrowIcon, RefreshIcon } from '@/components/icons';
 import styles from './Hero.module.css';
+import { LottieWithGradientMask } from '../animations/LottieWithGradientMask';
 
 interface HeroProps {
   onCtaClick: () => void;
@@ -59,6 +60,8 @@ export function Hero({ onCtaClick }: HeroProps) {
               <p>Human connection drives WA business</p>
               <p>The primary barrier to digital transformation is financial investment</p>
             </div>
+
+            <LottieWithGradientMask className="w-full h-full" blendMode="overlay" opacity={0.7} />
             <LottieWithNoiseMask
               className="w-full h-full"
               loop={true}

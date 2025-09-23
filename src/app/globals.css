@@ -3,7 +3,7 @@
   --color-primary: #ffffff;
   --color-secondary: #a855f7;
   --color-accent: #3b82f6;
-  --color-background: linear-gradient(0deg, #000000 0%, #1e222f 100%);
+  --color-background: #000000;
   --color-surface: #1a1b2e;
   --color-text-primary: #ffffff;
   --color-text-secondary: #94a3b8;
@@ -256,27 +256,6 @@ img {
   pointer-events: none;
   border-radius: inherit;
   z-index: 10;
-}
-
-.spotlight-effect::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    120deg,
-    rgba(255, 255, 255, 0.5) 0%,
-    rgba(64, 224, 255, 0.3) 20%,
-    rgba(168, 85, 247, 0.2) 40%,
-    rgba(59, 130, 246, 0.15) 60%,
-    transparent 80%
-  );
-  mix-blend-mode: color-dodge;
-  pointer-events: none;
-  border-radius: inherit;
-  z-index: 11;
 }
 
 /* Animated spotlight with subtle movement */

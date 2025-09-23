@@ -2,6 +2,7 @@ import React from 'react';
 import Lottie from 'lottie-react';
 import NoiseMaskFilter, { NOISE_FILTER_ID } from './NoiseMaskFilter';
 import { LottieAnimation } from './LottieAnimation';
+import { LottieWithGradientMask } from './LottieWithGradientMask';
 
 const LottieWithNoiseMask = ({
   loop = true,
@@ -27,25 +28,13 @@ const LottieWithNoiseMask = ({
   };
 
   return (
-    <div style={containerStyle}>
-      <NoiseMaskFilter
+    <div>
+      {/* <NoiseMaskFilter
         opacity={noiseOpacity}
         baseFrequency={noiseFrequency}
         numOctaves={noiseOctaves}
         blendMode={blendMode}
-      />
-      <LottieAnimation
-        className="w-full h-full"
-        loop={true}
-        autoplay={true}
-        enhanceColors={false}
-        colorTheme="default"
-        lightEffect="spotlight"
-        glowIntensity="high"
-        enableHoverGlow={true}
-        pulseSpeed={3}
-        style={lottieStyle}
-      />
+      /> */}
     </div>
   );
 };
