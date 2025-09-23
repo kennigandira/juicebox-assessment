@@ -1,0 +1,29 @@
+@font-face {
+  font-family: 'PP Agrandir';
+  src: url('PPAgrandir-Medium.eot');
+  src:
+    local('PP Agrandir Medium'),
+    local('PPAgrandir-Medium'),
+    url('PPAgrandir-Medium.eot?#iefix') format('embedded-opentype'),
+    url('PPAgrandir-Medium.woff2') format('woff2'),
+    url('PPAgrandir-Medium.woff') format('woff'),
+    url('PPAgrandir-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Agrandir';
+  src: url('PPAgrandir-Regular.eot');
+  src:
+    local('PP Agrandir Regular'),
+    local('PPAgrandir-Regular'),
+    url('PPAgrandir-Regular.eot?#iefix') format('embedded-opentype'),
+    url('PPAgrandir-Regular.woff2') format('woff2'),
+    url('PPAgrandir-Regular.woff') format('woff'),
+    url('PPAgrandir-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

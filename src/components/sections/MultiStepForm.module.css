@@ -1,0 +1,260 @@
+/* MultiStepForm Component Styles */
+.form {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 5rem;
+  background-color: #0a0b14;
+}
+
+@media (max-width: 768px) {
+  .form {
+    padding: 1rem;
+  }
+}
+
+.container {
+  max-width: 28rem;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1rem;
+  font-family: var(--font-pp-agrandir);
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: 2.25rem;
+  }
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: var(--font-sohne);
+}
+
+.progressContainer {
+  margin-bottom: 2rem;
+}
+
+.progressHeader {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 0.5rem;
+}
+
+.progressBar {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-full);
+  height: 0.5rem;
+}
+
+.progressFill {
+  background: linear-gradient(to right, #a855f7, #9333ea);
+  height: 0.5rem;
+  border-radius: var(--radius-full);
+  transition: width 500ms ease-out;
+}
+
+.formCard {
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.stepHeader {
+  margin-bottom: 1.5rem;
+}
+
+.stepTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-graphik);
+}
+
+.stepDescription {
+  color: rgba(255, 255, 255, 0.7);
+  font-family: var(--font-sohne);
+}
+
+.formContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.formField {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 1rem;
+}
+
+.buttonContainerEnd {
+  justify-content: flex-end;
+}
+
+.buttonContainerBetween {
+  justify-content: space-between;
+}
+
+.nextButton {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1.5rem;
+  background-color: var(--color-secondary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.nextButton:hover {
+  background-color: #9333ea;
+  transform: translateY(-1px);
+}
+
+.nextButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.nextIcon {
+  width: 1rem;
+  height: 1rem;
+  margin-left: 0.5rem;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.prevButton {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1.5rem;
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.prevButton:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.prevIcon {
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.5rem;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.submitButton {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1.5rem;
+  background-color: var(--color-secondary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.submitButton:hover {
+  background-color: #9333ea;
+  transform: translateY(-1px);
+}
+
+.submitButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.summary {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.summaryTitle {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0.75rem;
+}
+
+.summaryContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+}
+
+.summaryValue {
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.helpText {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.helpTextContent {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.helpLink {
+  color: #c084fc;
+  transition: color var(--transition-normal);
+}
+
+.helpLink:hover {
+  text-decoration: underline;
+}

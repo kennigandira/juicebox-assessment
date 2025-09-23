@@ -1,0 +1,58 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Production builds
+.next/
+out/
+build/
+dist/
+
+# Environment variables
+.env*
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# History folder (VS Code extension)
+.history/
+
+# Auto-generated files
+next-env.d.ts
+
+# Package manager files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Coverage directory
+coverage/
+
+# Temporary folders
+tmp/
+temp/
+
+# Lottie and animation files
+*.json
+!package.json
+!tsconfig.json
+!.prettierrc.json
+!.eslintrc.json

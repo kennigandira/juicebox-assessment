@@ -1,0 +1,103 @@
+/* Select Component Styles */
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.containerFullWidth {
+  width: 100%;
+}
+
+.label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.labelDark {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.required {
+  color: #ef4444;
+  margin-left: 0.25rem;
+}
+
+.select {
+  display: flex;
+  height: 2.5rem;
+  width: 100%;
+  border-radius: var(--radius-lg);
+  border: 1px solid #d1d5db;
+  background-color: white;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  color: #111827;
+  transition:
+    border-color var(--transition-normal),
+    box-shadow var(--transition-normal);
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'><path stroke='%236B7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 1rem 1rem;
+  padding-right: 2.5rem;
+}
+
+.selectDark {
+  border-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  color: white;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'><path stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/></svg>");
+}
+
+.select:focus {
+  border-color: #3b82f6;
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+}
+
+.selectDark:focus {
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.2);
+}
+
+.select:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  background-color: #f9fafb;
+}
+
+.selectDark:disabled {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.selectError {
+  border-color: #ef4444;
+}
+
+.selectError:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.2);
+}
+
+.errorMessage {
+  font-size: 0.875rem;
+  color: #dc2626;
+}
+
+.errorMessageDark {
+  color: #f87171;
+}
+
+.helpText {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.helpTextDark {
+  color: rgba(255, 255, 255, 0.6);
+}
