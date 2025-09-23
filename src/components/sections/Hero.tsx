@@ -56,12 +56,17 @@ export function Hero({ onCtaClick }: HeroProps) {
             <div className={styles.heroAnimationTexts}>
               <p>WA businesses feel confident about future growth</p>
               <p>AI can&apos;t replace real creativity</p>
-              <p>Sales success is driven by process</p>
+              <p>Sales measure true process</p>
               <p>Human connection drives WA business</p>
               <p>The primary barrier to digital transformation is financial investment</p>
             </div>
 
-            <LottieWithGradientMask className="w-full h-full" blendMode="overlay" opacity={0.7} />
+            <LottieWithGradientMask
+              className="w-full h-full"
+              blendMode="overlay"
+              autoplay={false}
+              opacity={0.7}
+            />
             <LottieWithNoiseMask
               className="w-full h-full"
               loop={true}

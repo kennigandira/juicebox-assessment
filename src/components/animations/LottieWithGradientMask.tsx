@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import Lottie, { LottieRefCurrentProps, useLottie } from 'lottie-react';
+import { useEffect, useState } from 'react';
+import { useLottie } from 'lottie-react';
 import styles from './Lottie.module.css';
 
 interface LottieWithGradientMaskProps {
@@ -43,7 +43,21 @@ export function LottieWithGradientMask({
   const [animation, setAnimation] = useState<Record<string, unknown> | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const lottieRef = useRef<LottieRefCurrentProps>(null);
+
+  const lottieOptions = {
+    animationData: animation,
+    loop,
+    autoplay,
+    onComplete,
+    onLoopComplete,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+      progressiveLoad: true,
+      hideOnTransparent: true,
+    },
+  };
+
+  const { View, setSpeed } = useLottie(lottieOptions, { background: 'transparent' });
 
   useEffect(() => {
     if (animationData) {
@@ -70,6 +84,12 @@ export function LottieWithGradientMask({
         });
     }
   }, [animationData, animationPath]);
+
+  useEffect(() => {
+    if (setSpeed && speed !== 1) {
+      setSpeed(speed);
+    }
+  }, [setSpeed, speed]);
 
   if (loading) {
     return (
@@ -98,32 +118,18 @@ export function LottieWithGradientMask({
   return (
     <div className={`relative ${className}`}>
       {/* Lottie Animation */}
-      <Lottie
-        lottieRef={lottieRef}
-        animationData={animation}
-        className={styles.lottie}
-        loop={loop}
-        autoplay={autoplay}
-        onComplete={onComplete}
-        onLoopComplete={onLoopComplete}
-        rendererSettings={{
-          preserveAspectRatio: 'xMidYMid slice',
-          progressiveLoad: true,
-          hideOnTransparent: true,
-        }}
-      />
+      <div className={styles.lottie}>{View}</div>
 
       {/* Gradient Overlay */}
-      <img
+      {/* <img
         src={gradientImageUrl}
         alt=""
         className={styles.gradientOverlay}
-        // className="absolute inset-0 w-full h-full object-cover pointer-events-none"
         style={{
           mixBlendMode: blendMode,
           opacity: opacity,
         }}
-      />
+      /> */}
     </div>
   );
 }
