@@ -3,17 +3,17 @@
 import { useRef, useState } from 'react';
 import Image from 'next/image';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { TextPlugin } from 'gsap/dist/TextPlugin';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectFade } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
-import LottieWithNoiseMask from '@/components/animations/LottieWithNoiseMask';
 import { ArrowLeftIcon, RefreshIcon } from '@/components/icons';
 import styles from './Hero.module.css';
 import { LottieWithGradientMask } from '../animations/LottieWithGradientMask';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+gsap.registerPlugin(useGSAP, ScrollTrigger, TextPlugin);
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/effect-fade';
@@ -145,6 +145,13 @@ export function Hero({ onCtaClick }: HeroProps) {
     const timeline = gsap.timeline();
 
     timeline
+      .to(buttonRef.current, {
+        duration: 0.3,
+        text: 'Continue',
+        ease: 'none',
+        background: 'transparent',
+        color: '#ffffff',
+      })
       .to(heroAnimationTextsRef.current, {
         opacity: 0,
         duration: 0.4,
@@ -207,6 +214,13 @@ export function Hero({ onCtaClick }: HeroProps) {
     const timeline = gsap.timeline();
 
     timeline
+      .to(buttonRef.current, {
+        duration: 0.3,
+        text: 'Get a reality check',
+        ease: 'none',
+        background: '#cdaaff',
+        color: '#0c0d10',
+      })
       .to(backButtonRef.current, {
         opacity: 0,
         x: -20,
@@ -271,11 +285,16 @@ export function Hero({ onCtaClick }: HeroProps) {
 
   const handleGoBack = () => {
     if (currentStep === 1) {
-      // Go back to initial hero state (step 0)
       animateBackToNormal();
     } else if (currentStep > 1 && swiper) {
-      // Go back to previous slide in tutorial
       swiper.slidePrev();
+      gsap.to(buttonRef.current, {
+        duration: 0.3,
+        text: 'Continue',
+        ease: 'none',
+        background: 'transparent',
+        color: '#ffffff',
+      });
     }
   };
 
@@ -285,24 +304,31 @@ export function Hero({ onCtaClick }: HeroProps) {
   };
 
   const handleCtaClick = contextSafe(() => {
+    // const button = buttonRef.current?.querySelector('button');
     if (!isTutorialMode) {
-      const button = buttonRef.current?.querySelector('button');
-      if (button) {
-        gsap.to(button, {
-          scale: 0.95,
+      if (buttonRef.current) {
+        gsap.to(buttonRef.current, {
           duration: 0.1,
           yoyo: true,
           repeat: 1,
           ease: 'power2.inOut',
-          onComplete: animateToTutorialMode,
+          background: 'transparent',
         });
-      } else {
-        animateToTutorialMode();
       }
+      animateToTutorialMode();
     } else {
       if (currentStep < tutorialSteps.length) {
         if (swiper) {
           swiper.slideNext();
+          if (buttonRef.current && currentStep === 2) {
+            gsap.to(buttonRef.current, {
+              duration: 0.3,
+              text: 'Get Started',
+              ease: 'none',
+              background: 'white',
+              color: '#0C0D10',
+            });
+          }
         }
       } else {
         onCtaClick();
@@ -310,14 +336,8 @@ export function Hero({ onCtaClick }: HeroProps) {
     }
   });
 
-  const buttonClassname = isTutorialMode
-    ? `${styles.ctaButton} ${styles.ctaButtonOutlined}`
-    : styles.ctaButton;
-  const buttonText = !isTutorialMode
-    ? 'Get a reality check'
-    : currentStep < tutorialSteps.length
-      ? 'Continue'
-      : 'Get started';
+  const buttonClassname = isTutorialMode ? `${styles.cta} ${styles.ctaOutlined}` : styles.cta;
+  const buttonText = !isTutorialMode ? 'Get a reality check' : 'Continue';
 
   return (
     <section ref={containerRef} className={styles.hero}>
@@ -356,17 +376,6 @@ export function Hero({ onCtaClick }: HeroProps) {
             blendMode="overlay"
             autoplay={false}
             opacity={0.7}
-          />
-          <LottieWithNoiseMask
-            className="w-full h-full"
-            loop={true}
-            autoplay={true}
-            enhanceColors={false}
-            colorTheme="default"
-            lightEffect="spotlight"
-            glowIntensity="high"
-            enableHoverGlow={true}
-            pulseSpeed={3}
           />
         </div>
       </div>
