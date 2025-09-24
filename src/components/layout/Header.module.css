@@ -31,9 +31,7 @@
 }
 
 .refreshButton:hover {
-  border-color: rgba(205, 170, 255, 0.4);
   transform: rotate(90deg);
-  color: #cdaaff;
 }
 
 .refreshButton:active {

@@ -25,6 +25,7 @@ export interface BaseIconProps {
   onClick?: () => void;
   /** Test ID for testing */
   'data-testid'?: string;
+  style?: CSSStyleSheet;
 }
 
 export interface IconConfig {

@@ -1,28 +1,77 @@
 import Image from 'next/image';
+import gsap from 'gsap';
 import styles from './Header.module.css';
 import { useRef } from 'react';
-import { ArrowLeftIcon } from '../icons/icons/ArrowLeftIcon';
+import { ArrowIcon } from '../icons/icons/ArrowIcon';
+import { parseAsInteger, parseAsStringEnum, useQueryState } from 'nuqs';
+import { QueryState } from '@/global/enums/queryState';
+import { PageState } from '@/global/enums/pageState';
+import { useGSAP } from '@gsap/react';
+import { WALKTHROUGH_STEPS_TOTAL } from '../sections/Walkthrough';
 
 export type AppState = 'hero' | 'walkthrough' | 'tutorial' | 'form' | 'results';
 
-export const Header = ({
-  onSetAppState,
-  walkthroughStep,
-}: {
-  onSetAppState: (state: AppState) => void;
-  walkthroughStep: number;
-}) => {
+gsap.registerPlugin(useGSAP);
+
+const BACK_BUTTON_ANIMATIONS_ATTRIBUTES = {
+  [PageState.Hero]: {
+    display: 'none',
+    opacity: '0',
+    border: 'none',
+  },
+  [PageState.Walkthrough]: {
+    display: 'block',
+    opacity: '1',
+  },
+};
+
+export const Header = () => {
+  const [pageState, setPageState] = useQueryState(
+    QueryState.PageState,
+    parseAsStringEnum<PageState>(Object.values(PageState)).withDefault(PageState.Hero)
+  );
+  const [walkthroughStep, setWalkthroughStep] = useQueryState(
+    QueryState.WalkthroughStep,
+    parseAsInteger.withDefault(0)
+  );
+
   const logoContainerRef = useRef<HTMLDivElement>(null);
   const backButtonRef = useRef<HTMLButtonElement>(null);
 
   const handleRefresh = () => {
-    // Refresh page or reset state
-    window.location.reload();
+    setPageState(null);
+    setWalkthroughStep(null);
   };
 
+  useGSAP(() => {
+    if (pageState === PageState.Hero) {
+      gsap.to(backButtonRef.current, {
+        duration: 0.4,
+        ...BACK_BUTTON_ANIMATIONS_ATTRIBUTES[PageState.Hero],
+      });
+    }
+
+    if (pageState === PageState.Walkthrough) {
+      gsap.to(backButtonRef.current, {
+        duration: 0.4,
+        ...BACK_BUTTON_ANIMATIONS_ATTRIBUTES[PageState.Walkthrough],
+      });
+    }
+  }, [pageState]);
+
   const handleGoBack = () => {
-    // Implement your go back logic here
-    onSetAppState('hero');
+    if (pageState === PageState.Walkthrough) {
+      if (walkthroughStep > 0 && walkthroughStep < 3) {
+        setWalkthroughStep(walkthroughStep - 1);
+      } else if (walkthroughStep === 0) {
+        setPageState(PageState.Hero);
+      }
+    }
+
+    if (pageState === PageState.Form) {
+      setPageState(PageState.Walkthrough);
+      setWalkthroughStep(WALKTHROUGH_STEPS_TOTAL);
+    }
   };
 
   return (
@@ -33,7 +82,7 @@ export const Header = ({
         className={styles.backButton}
         aria-label="Go back"
       >
-        <ArrowLeftIcon direction="left" color="#ffffff" />
+        <ArrowIcon direction="left" color="#ffffff" />
       </button>
       <Image src="/jb-logo.png" alt="Juicebox Logo" width={120} height={40} priority />
       <button

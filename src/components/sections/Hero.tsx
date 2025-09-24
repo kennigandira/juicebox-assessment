@@ -7,7 +7,7 @@ import { TextPlugin } from 'gsap/dist/TextPlugin';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectFade } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
-import { ArrowLeftIcon, RefreshIcon } from '@/components/icons';
+import { ArrowIcon, RefreshIcon } from '@/components/icons';
 import styles from './Hero.module.css';
 import { LottieWithGradientMask } from '../animations/LottieWithGradientMask';
 import gsap from 'gsap';
@@ -341,28 +341,13 @@ export function Hero({ onCtaClick }: HeroProps) {
 
   return (
     <section ref={containerRef} className={styles.hero}>
-      <div ref={logoContainerRef} className={styles.logoContainer}>
-        {isTutorialMode && (
-          <button
-            ref={backButtonRef}
-            onClick={handleGoBack}
-            className={styles.backButton}
-            aria-label="Go back"
-          >
-            <ArrowLeftIcon direction="left" color="#ffffff" />
-          </button>
-        )}
-        <Image src="/jb-logo.png" alt="Juicebox Logo" width={120} height={40} priority />
-        <button className={styles.refreshButton}>
-          <RefreshIcon />
-        </button>
-      </div>
-
       {/* Lottie Animation with Gradient Background */}
       <div ref={animationRef} className={styles.animationWrapper}>
-        <div className={styles.lottieContainer}>
+        <div className={styles.heroAnimationTextsWrapper}>
           <div ref={heroAnimationTextsRef} className={styles.heroAnimationTexts}>
-            <p className="hero-floating-text">WA businesses feel confident about future growth</p>
+            <p className="hero-floating-text">
+              WA businesseszzzzzz feel confident about future growth
+            </p>
             <p className="hero-floating-text">AI can&apos;t replace real creativity</p>
             <p className="hero-floating-text">Sales measure true process</p>
             <p className="hero-floating-text">Human connection drives WA business</p>
@@ -382,46 +367,12 @@ export function Hero({ onCtaClick }: HeroProps) {
 
       {/* Content container */}
       <div ref={tutorialSwiperRef} className={styles.contentContainer}>
-        {/* Text content */}
-        {!isTutorialMode ? (
-          <div ref={textContentRef} className={styles.textContent}>
-            <h2 ref={titleRef} className={styles.title}>
-              Compare your thoughts on
-              <span className={styles.titleGradient}> technology </span>
-              <span className={styles.titleWhite}>with current industry opinions.</span>
-            </h2>
-          </div>
-        ) : (
-          <div className={styles.tutorialSwiper}>
-            <Swiper
-              modules={[EffectFade]}
-              effect="slide"
-              fadeEffect={{
-                crossFade: true,
-              }}
-              allowTouchMove={false}
-              spaceBetween={0}
-              slidesPerView={1}
-              onSwiper={setSwiper}
-              onSlideChange={handleSlideChange}
-            >
-              {tutorialSteps.map((step, index) => (
-                <SwiperSlide key={index}>
-                  <h4 className={styles.tutorialContent}>{step}</h4>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-        )}
-        <div ref={stepIndicatorsRef} className={styles.stepIndicators}>
-          {tutorialSteps.map((_, index) => (
-            <div
-              key={index}
-              className={`${styles.stepDot} ${
-                index + 1 === currentStep ? styles.stepDotActive : styles.stepDotInactive
-              }`}
-            />
-          ))}
+        <div ref={textContentRef} className={styles.textContent}>
+          <h2 ref={titleRef} className={styles.title}>
+            Compare your thoughts on
+            <span className={styles.titleGradient}> technology </span>
+            <span className={styles.titleWhite}>with current industry opinions.</span>
+          </h2>
         </div>
       </div>
       <button ref={buttonRef} onClick={handleCtaClick} className={buttonClassname}>

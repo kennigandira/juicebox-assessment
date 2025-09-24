@@ -1,29 +1,10 @@
 .walkthrough {
-  position: relative;
   min-height: 100vh;
+  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  background: var(--color-background, #0a0b14);
-}
-
-.backButton {
-  position: absolute;
-  top: 2rem;
-  left: 2rem;
-  background: transparent;
-  border: none;
-  color: white;
-  cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  transition: background-color 0.2s ease;
-}
-
-.backButton:hover {
-  background: rgba(255, 255, 255, 0.1);
+  justify-content: end;
+  padding-bottom: 8rem;
 }
 
 .content {
@@ -50,24 +31,26 @@
 }
 
 .stepContent {
-  font-family: var(--font-sohne);
+  font-family: var(--font-bagoss);
   font-size: 1.5rem;
+  font-weight: 400;
   line-height: 1.6;
   color: white;
   margin: 0;
   max-width: 42rem;
+  line-height: 1.4;
 }
 
 .stepIndicators {
   display: flex;
-  gap: 1rem;
+  gap: 8px;
   align-items: center;
   justify-content: center;
 }
 
 .stepDot {
-  width: 0.75rem;
-  height: 0.75rem;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   border: none;
   cursor: pointer;
@@ -91,10 +74,6 @@
 }
 
 @media (max-width: 768px) {
-  .walkthrough {
-    padding: 1rem;
-  }
-
   .backButton {
     top: 1rem;
     left: 1rem;

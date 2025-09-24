@@ -2,6 +2,10 @@
 .hero {
   min-height: 100vh;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  padding-bottom: 8rem;
 }
 
 .contentContainer {
@@ -11,7 +15,7 @@
   flex-direction: column;
   align-items: center;
   gap: 2rem;
-  padding: 0 1rem;
+  padding: 2rem 1rem 0;
   filter: drop-shadow(0 -116px 20px rgba(0, 0, 0, 1));
   position: relative;
   z-index: 10;
@@ -27,9 +31,7 @@
 }
 
 .title {
-  font-size: 1.875rem;
   color: white;
-  font-family: var(--font-bagoss);
   font-weight: 400;
   line-height: 120%;
   text-align: center;
@@ -41,18 +43,6 @@
   font-size: 22px;
   line-height: 125%;
   text-align: center;
-}
-
-@media (min-width: 768px) {
-  .title {
-    font-size: 2.25rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .title {
-    font-size: 3rem;
-  }
 }
 
 .titleGradient {
@@ -71,29 +61,6 @@
   justify-content: center;
 }
 
-.cta {
-  position: fixed;
-  left: 1rem;
-  right: 1rem;
-  bottom: 1.5rem;
-  padding: 19px 2rem;
-  font-size: 1rem;
-  font-family: var(--font-sohne);
-  font-weight: 400;
-  background: #cdaaff;
-  color: #0c0d10;
-  border: none;
-  border-radius: 16px;
-  box-shadow: 0px 0px 0px 0px #ffffff57;
-}
-
-.ctaOutlined {
-  background: transparent;
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: none;
-}
-
 .animationContainer {
   display: flex;
   justify-content: center;
@@ -104,12 +71,14 @@
 }
 
 .animationWrapper {
-  position: relative;
+  transform-origin: top;
   width: 18rem;
   height: 18rem;
-  transform-origin: center top;
-  margin: 0 auto;
-  margin-top: 2rem;
+  margin: 2rem auto 0;
+  position: fixed;
+  /* margin: 0 auto; */
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 @media (min-width: 1024px) {
@@ -120,47 +89,9 @@
   }
 }
 
-.gradientBackground {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: linear-gradient(
-    to bottom right,
-    rgba(168, 85, 247, 0.2),
-    rgba(59, 130, 246, 0.2),
-    rgba(34, 211, 238, 0.2)
-  );
-  filter: blur(48px);
-}
-
-.gradientBackgroundInner {
-  position: absolute;
-  inset: 1rem;
-  border-radius: 50%;
-  background: linear-gradient(
-    to top right,
-    rgba(147, 51, 234, 0.1),
-    rgba(37, 99, 235, 0.1),
-    rgba(6, 182, 212, 0.1)
-  );
-  filter: blur(32px);
-}
-
 .lottieContainer {
   /* position: relative; */
   z-index: 10;
-}
-
-.lottieContainer::after {
-  content: '';
-  position: absolute;
-  top: -160px;
-  bottom: 0;
-  left: 50px;
-  right: 0;
-  background: radial-gradient(circle, #7c83b975 0%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0) 15%);
-  filter: blur(20px);
-  /* transform: scale(2.1); */
 }
 
 .heroAnimationTexts {
@@ -303,24 +234,10 @@
     padding: 6px;
   }
 
-  .cta {
-    bottom: 1.5rem;
-    left: 1rem;
-    right: 1rem;
-    min-width: auto;
-    font-size: 16px;
-    padding: 14px 24px;
-  }
-
   .animationWrapper {
-    width: 16rem;
-    height: 16rem;
+    width: 18rem;
+    height: 18rem;
     margin-top: 8rem;
-  }
-
-  .title {
-    font-size: 1.5rem;
-    padding: 0 1rem;
   }
 }
 

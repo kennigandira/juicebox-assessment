@@ -25,6 +25,10 @@
   --font-body: var(--font-sohne);
   --font-bagoss: var(--font-bagoss);
 
+  /* Font size */
+  --font-size-h2: 28px;
+  --font-size-h4: 22px;
+
   /* Spacing */
   --spacing-xs: 0.25rem; /* 4px */
   --spacing-sm: 0.5rem; /* 8px */
@@ -68,29 +72,17 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-primary), system-ui, sans-serif;
+  font-family: var(--font-bagoss), system-ui, sans-serif;
   font-weight: 700;
   line-height: 1.2;
   color: var(--color-text-primary);
 }
 
-h1 {
-  font-size: 3rem;
-}
 h2 {
-  font-size: 2.25rem;
-}
-h3 {
-  font-size: 1.875rem;
+  font-size: var(--font-size-h2);
 }
 h4 {
-  font-size: 1.5rem;
-}
-h5 {
-  font-size: 1.25rem;
-}
-h6 {
-  font-size: 1.125rem;
+  font-size: var(--font-size-h4);
 }
 
 p {
@@ -119,14 +111,14 @@ body {
 }
 
 /* Focus styles for accessibility */
-:focus {
-  outline: 2px solid var(--color-border-focus);
+/* :focus {
+  outline: 1px solid var(--color-border-focus);
   outline-offset: 2px;
 }
 
 :focus:not(:focus-visible) {
   outline: none;
-}
+} */
 
 /* Button reset */
 button {
@@ -362,6 +354,22 @@ img {
 }
 .justify-between {
   justify-content: space-between;
+}
+
+.rotate-90 {
+  transform: rotate(90deg);
+}
+
+.-rotate-90 {
+  transform: rotate(-90deg);
+}
+
+.rotate-0 {
+  transform: rotate(0deg);
+}
+
+.rotate-180 {
+  transform: rotate(180deg);
 }
 
 .w-full {

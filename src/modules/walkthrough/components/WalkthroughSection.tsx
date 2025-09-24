@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectFade } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
@@ -8,12 +8,15 @@ import { gsap } from 'gsap';
 import { Button } from '@/shared/ui';
 import { useStepNavigation } from '@/shared/navigation';
 import { useGSAPAnimation } from '@/shared/animations';
-import { ArrowLeftIcon } from '@/components/icons';
+import { ArrowIcon } from '@/components/icons';
 import styles from '../styles/Walkthrough.module.css';
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/effect-fade';
+import { parseAsInteger, parseAsStringEnum, useQueryState } from 'nuqs';
+import { QueryState } from '@/global/enums/queryState';
+import { PageState } from '@/global/enums/pageState';
 
 interface WalkthroughSectionProps {
   onComplete: () => void;
@@ -26,14 +29,25 @@ const walkthroughSteps = [
   "You'll get insights into current industry sentiments and a reality check about technology in a few minutes. Deal? Great!",
 ];
 
+const INITIAL_SWIPER_INDEX = 0;
+
 export function WalkthroughSection({ onComplete, onBack }: WalkthroughSectionProps) {
   const [swiper, setSwiper] = useState<SwiperType | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const backButtonRef = useRef<HTMLButtonElement>(null);
   const stepIndicatorsRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const { currentStep, isFirstStep, isLastStep, goToNext, goToPrev, goToStep } = useStepNavigation({
+  const [pageState] = useQueryState(
+    QueryState.PageState,
+    parseAsStringEnum<PageState>(Object.values(PageState)).withDefault(PageState.Hero)
+  );
+
+  const [walkthroughStep] = useQueryState(
+    QueryState.WalkthroughStep,
+    parseAsInteger.withDefault(0)
+  );
+
+  const { currentStep, goToStep } = useStepNavigation({
     totalSteps: walkthroughSteps.length,
     onStepChange: (step, direction) => {
       if (swiper) {
@@ -42,6 +56,18 @@ export function WalkthroughSection({ onComplete, onBack }: WalkthroughSectionPro
     },
   });
 
+  useEffect(() => {
+    const isWalkthroughPage = pageState === PageState.Walkthrough;
+
+    if (swiper && isWalkthroughPage) {
+      if (!isNaN(walkthroughStep)) {
+        swiper.slideTo(walkthroughStep);
+      } else {
+        swiper.slideTo(INITIAL_SWIPER_INDEX);
+      }
+    }
+  }, [pageState, walkthroughStep]);
+
   // Entrance animations
   useGSAPAnimation(
     () => {
@@ -49,38 +75,26 @@ export function WalkthroughSection({ onComplete, onBack }: WalkthroughSectionPro
 
       const tl = gsap.timeline();
 
-      // Set initial states
-      gsap.set([backButtonRef.current, stepIndicatorsRef.current, buttonRef.current], {
-        opacity: 0,
-        y: 20,
-      });
-
       // Animate entrance
-      tl.fromTo(
-        backButtonRef.current,
-        { opacity: 0, x: -20 },
-        { opacity: 1, x: 0, duration: 0.5, ease: 'power2.out' }
-      )
-        .to(
-          stepIndicatorsRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.5,
-            ease: 'power2.out',
-          },
-          '-=0.3'
-        )
-        .to(
-          buttonRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.5,
-            ease: 'power2.out',
-          },
-          '-=0.2'
-        );
+      tl.to(
+        stepIndicatorsRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          ease: 'power2.out',
+        },
+        '-=0.3'
+      ).to(
+        buttonRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          ease: 'power2.out',
+        },
+        '-=0.2'
+      );
 
       return tl;
     },
@@ -95,88 +109,48 @@ export function WalkthroughSection({ onComplete, onBack }: WalkthroughSectionPro
     }
   };
 
-  const handleBack = () => {
-    if (isFirstStep && onBack) {
-      onBack();
-    } else {
-      goToPrev();
-    }
-  };
-
-  const handleContinue = () => {
-    if (isLastStep) {
-      onComplete();
-    } else {
-      goToNext();
-    }
-  };
-
-  const getButtonText = () => {
-    if (isLastStep) return 'Get Started';
-    return 'Continue';
-  };
-
   return (
-    <div ref={containerRef} className={styles.walkthrough}>
-      {/* Back Button */}
-      <button
-        ref={backButtonRef}
-        onClick={handleBack}
-        className={styles.backButton}
-        aria-label={isFirstStep ? 'Go back to hero' : 'Go to previous step'}
-      >
-        <ArrowLeftIcon direction="left" color="#ffffff" />
-      </button>
+    <section ref={containerRef} id="walkthrough">
+      <div className={styles.walkthrough}>
+        {/* Content */}
+        <div className={styles.content}>
+          <Swiper
+            modules={[EffectFade]}
+            effect="slide"
+            fadeEffect={{
+              crossFade: true,
+            }}
+            allowTouchMove={false}
+            spaceBetween={0}
+            slidesPerView={1}
+            onSwiper={setSwiper}
+            onSlideChange={handleSlideChange}
+            className={styles.swiper}
+          >
+            {walkthroughSteps.map((step, index) => (
+              <SwiperSlide key={index}>
+                <div className={styles.slide}>
+                  <h3 className={styles.stepContent}>{step}</h3>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
 
-      {/* Content */}
-      <div className={styles.content}>
-        <Swiper
-          modules={[EffectFade]}
-          effect="slide"
-          fadeEffect={{
-            crossFade: true,
-          }}
-          allowTouchMove={false}
-          spaceBetween={0}
-          slidesPerView={1}
-          onSwiper={setSwiper}
-          onSlideChange={handleSlideChange}
-          className={styles.swiper}
-        >
-          {walkthroughSteps.map((step, index) => (
-            <SwiperSlide key={index}>
-              <div className={styles.slide}>
-                <h3 className={styles.stepContent}>{step}</h3>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-
-        {/* Step Indicators */}
-        <div ref={stepIndicatorsRef} className={styles.stepIndicators}>
-          {walkthroughSteps.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => goToStep(index + 1)}
-              className={`${styles.stepDot} ${
-                index + 1 === currentStep ? styles.stepDotActive : styles.stepDotInactive
-              }`}
-              aria-label={`Go to step ${index + 1}`}
-            />
-          ))}
+          {/* Step Indicators */}
+          <div ref={stepIndicatorsRef} className={styles.stepIndicators}>
+            {walkthroughSteps.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToStep(index + 1)}
+                className={`${styles.stepDot} ${
+                  index + 1 === currentStep ? styles.stepDotActive : styles.stepDotInactive
+                }`}
+                aria-label={`Go to step ${index + 1}`}
+              />
+            ))}
+          </div>
         </div>
-
-        {/* Action Button */}
-        <Button
-          ref={buttonRef}
-          onClick={handleContinue}
-          className={styles.actionButton}
-          size="lg"
-          variant={isLastStep ? 'primary' : 'outline'}
-        >
-          {getButtonText()}
-        </Button>
       </div>
-    </div>
+    </section>
   );
 }

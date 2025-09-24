@@ -1,10 +1,14 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
-import { gsap } from 'gsap';
+import { useRef } from 'react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { LottieWithGradientMask } from '@/shared/animations';
 import styles from '../styles/Hero.module.css';
+import { parseAsInteger, parseAsStringEnum, useQueryState } from 'nuqs';
+import { QueryState } from '@/global/enums/queryState';
+import { PageState } from '@/global/enums/pageState';
 
 // Register ScrollTrigger
 if (typeof window !== 'undefined') {
@@ -15,157 +19,57 @@ interface HeroAnimationProps {
   isInWalkthroughMode?: boolean;
 }
 
+const HERO_ANIMATION_TEXTS = [
+  'WA businesses feel confident about future growth',
+  'AI can&apos;t replace real creativity',
+  'Sales measure true process',
+  'Human connection drives WA business',
+  'The primary barrier to digital transformation is financial investment',
+];
+
+gsap.registerPlugin(useGSAP);
+
 export function HeroAnimation({ isInWalkthroughMode = false }: HeroAnimationProps) {
   const animationRef = useRef<HTMLDivElement>(null);
   const textContainerRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
-  // Check for reduced motion preference
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-      setPrefersReducedMotion(mediaQuery.matches);
+  const [pageState] = useQueryState(
+    QueryState.PageState,
+    parseAsStringEnum<PageState>(Object.values(PageState)).withDefault(PageState.Hero)
+  );
 
-      const handleChange = (e: MediaQueryListEvent) => {
-        setPrefersReducedMotion(e.matches);
-      };
+  const [walkthroughStep] = useQueryState(
+    QueryState.WalkthroughStep,
+    parseAsInteger.withDefault(0)
+  );
 
-      mediaQuery.addEventListener('change', handleChange);
-      return () => mediaQuery.removeEventListener('change', handleChange);
+  useGSAP(() => {
+    if (pageState === PageState.Walkthrough) {
+      gsap.to(containerRef.current, { scale: '0.7', duration: 1 });
+      gsap.to(textContainerRef.current, { display: 'none', opacity: 0 });
     }
-  }, []);
 
-  // Scroll-triggered animations when entering walkthrough mode
-  useEffect(() => {
-    if (!animationRef.current || !containerRef.current || prefersReducedMotion) return;
+    if (pageState === PageState.Hero) {
+      gsap.to(textContainerRef.current, { display: 'block', opacity: 1 });
+      gsap.to(containerRef.current, { scale: '1', duration: 1 });
+    }
 
-    const ctx = gsap.context(() => {
-      if (isInWalkthroughMode) {
-        // Create scroll-triggered animation for walkthrough mode
-        ScrollTrigger.create({
-          trigger: containerRef.current,
-          start: 'top center',
-          end: '+=100vh',
-          scrub: 0.5,
-          pin: false,
-          anticipatePin: 1,
-          onUpdate: self => {
-            const progress = self.progress;
-            const element = animationRef.current;
-
-            if (!element) return;
-
-            // Calculate scale (from 100% to 50%)
-            const scale = 1 - progress * 0.5;
-            // Calculate opacity (fade slightly)
-            const opacity = Math.max(0.3, 1 - progress * 0.7);
-
-            // Apply transforms with proper performance optimization
-            gsap.set(element, {
-              position: 'fixed',
-              top: '50%',
-              left: '50%',
-              xPercent: -50,
-              yPercent: -50,
-              scale: scale,
-              zIndex: 40,
-              opacity: opacity,
-              filter: `blur(${progress * 2}px)`,
-              willChange: 'transform, opacity, filter',
-            });
-
-            // Animate floating texts
-            if (textContainerRef.current) {
-              gsap.set(textContainerRef.current, {
-                opacity: Math.max(0, 1 - progress * 1.5),
-                scale: 0.8 + (1 - progress) * 0.2,
-              });
-            }
-          },
-          // onComplete: () => {
-          //   // Smooth fade out after scroll complete
-          //   gsap.to(animationRef.current, {
-          //     opacity: 0,
-          //     scale: 0.3,
-          //     duration: 0.5,
-          //     ease: 'power2.out',
-          //     onComplete: () => {
-          //       if (animationRef.current) {
-          //         gsap.set(animationRef.current, {
-          //           pointerEvents: 'none',
-          //           visibility: 'hidden',
-          //         });
-          //       }
-          //     },
-          //   });
-          // },
-        });
-      } else {
-        // Reset to normal positioning when not in walkthrough mode
-        gsap.set(animationRef.current, {
-          position: 'relative',
-          top: 'auto',
-          left: 'auto',
-          xPercent: 0,
-          yPercent: 0,
-          scale: 1,
-          zIndex: 'auto',
-          opacity: 1,
-          pointerEvents: 'auto',
-          visibility: 'visible',
-          filter: 'none',
-          clearProps: 'transform',
-        });
-
-        if (textContainerRef.current) {
-          gsap.set(textContainerRef.current, {
-            opacity: 1,
-            scale: 1,
-          });
-        }
-
-        // Add gentle floating animation when in normal mode
-        gsap.to(animationRef.current, {
-          y: -10,
-          duration: 3,
-          ease: 'sine.inOut',
-          yoyo: true,
-          repeat: -1,
-        });
-
-        // Parallax effect for floating texts
-        gsap.to('.hero-floating-text', {
-          y: -30,
-          ease: 'none',
-          stagger: 0.02,
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: true,
-          },
-        });
-      }
-    }, containerRef);
-
-    return () => {
-      ctx.revert();
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    };
-  }, [isInWalkthroughMode, prefersReducedMotion]);
+    if (pageState === PageState.Form) {
+      gsap.to(containerRef.current, { scale: '0.1', duration: 1 });
+      gsap.to(textContainerRef.current, { display: 'none', opacity: 0 });
+    }
+  }, [pageState]);
 
   return (
     <div ref={containerRef} className={styles.animationWrapper}>
       <div ref={animationRef} className={styles.lottieContainer}>
         <div ref={textContainerRef} className={styles.heroAnimationTexts}>
-          <p className="hero-floating-text">WA businesses feel confident about future growth</p>
-          <p className="hero-floating-text">AI can&apos;t replace real creativity</p>
-          <p className="hero-floating-text">Sales measure true process</p>
-          <p className="hero-floating-text">Human connection drives WA business</p>
-          <p className="hero-floating-text">
-            The primary barrier to digital transformation is financial investment
-          </p>
+          {HERO_ANIMATION_TEXTS.map(text => (
+            <p key={text} className="hero-floating-text">
+              {text}
+            </p>
+          ))}
         </div>
 
         <LottieWithGradientMask
@@ -174,7 +78,6 @@ export function HeroAnimation({ isInWalkthroughMode = false }: HeroAnimationProp
           autoplay={true}
           opacity={0.7}
           alt="Interactive data visualization animation showing charts, graphs, and insights transforming"
-          respectsReducedMotion={true}
           onError={() => {
             console.warn('Hero Lottie animation failed to load');
           }}

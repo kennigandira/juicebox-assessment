@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Tutorial } from '../Tutorial';
+import { Tutorial } from '../Walkthrough';
 
 // Mock the CSS module
 jest.mock('../Tutorial.module.css', () => ({

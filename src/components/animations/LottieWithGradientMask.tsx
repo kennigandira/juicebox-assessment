@@ -120,7 +120,7 @@ export function LottieWithGradientMask({
       {/* Lottie Animation */}
       <div className={styles.lottie}>{View}</div>
 
-      <div className={styles.layerMask}></div>
+      {/* <div className={styles.layerMask}></div> */}
 
       {/* Gradient Overlay */}
       {/* <img

@@ -13,7 +13,7 @@
 }
 
 .button:focus {
-  outline: 2px solid var(--color-border-focus);
+  /* outline: 2px solid var(--color-border-focus); */
   outline-offset: 2px;
 }
 
@@ -35,12 +35,7 @@
 }
 
 .primary:hover {
-  background-color: #1d4ed8;
   box-shadow: var(--shadow-md);
-}
-
-.primary:active {
-  background-color: #1e40af;
 }
 
 .secondary {

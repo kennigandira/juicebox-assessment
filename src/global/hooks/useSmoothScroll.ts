@@ -4,9 +4,23 @@ import { useEffect, useRef } from 'react';
 import Lenis from 'lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { parseAsStringEnum, useQueryState } from 'nuqs';
+import { QueryState } from '../enums/queryState';
+import { PageState } from '../enums/pageState';
+
+const PAGE_STATES_SECTIONS = {
+  [PageState.Hero]: '#hero',
+  [PageState.Walkthrough]: '#walkthrough',
+  [PageState.Form]: '#form',
+  [PageState.Results]: '#results',
+};
 
 export function useSmoothScroll() {
   const lenisRef = useRef<Lenis | null>(null);
+  const [pageState] = useQueryState(
+    QueryState.PageState,
+    parseAsStringEnum<PageState>(Object.values(PageState)).withDefault(PageState.Hero)
+  );
 
   useEffect(() => {
     // Register ScrollTrigger plugin
@@ -53,7 +67,9 @@ export function useSmoothScroll() {
       }
     };
 
-    document.addEventListener('click', handleAnchorClick);
+    if (pageState) {
+      scrollTo(PAGE_STATES_SECTIONS[pageState]);
+    }
 
     // Cleanup
     return () => {
@@ -64,6 +80,14 @@ export function useSmoothScroll() {
       });
     };
   }, []);
+
+  useEffect(() => {
+    if (pageState !== PageState.Hero) {
+      scrollTo(PAGE_STATES_SECTIONS[pageState]);
+    } else {
+      scrollToTop();
+    }
+  }, [pageState]);
 
   const scrollTo = (
     target: string | HTMLElement,
