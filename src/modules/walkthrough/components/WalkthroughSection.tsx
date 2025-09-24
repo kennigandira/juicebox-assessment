@@ -39,7 +39,7 @@ export function WalkthroughSection() {
 
   const { currentStep, goToStep } = useStepNavigation({
     totalSteps: walkthroughSteps.length,
-    onStepChange: (step, direction) => {
+    onStepChange: step => {
       if (swiper) {
         swiper.slideTo(step - 1, 300);
       }
