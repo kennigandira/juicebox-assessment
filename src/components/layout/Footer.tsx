@@ -8,14 +8,15 @@ import styles from './Footer.module.css';
 import { parseAsInteger, parseAsStringEnum, useQueryState } from 'nuqs';
 import { PageState } from '@/global/enums/pageState';
 import { QueryState } from '@/global/enums/queryState';
-import { WALKTHROUGH_STEPS_TOTAL } from '../sections/Walkthrough';
 import { useGSAP } from '@gsap/react';
 import { Input } from '@/shared/ui';
+import { WALKTHROUGH_STEPS_TOTAL } from '@/global/constants';
 
 const BUTTON_TEXTS = {
   INITIAL_TEXT: 'Get a reality check',
   WALKTHROUGH_MODE: 'Continue',
   END_OF_WALKTHROUGH_MODE: 'Get Started',
+  FORM_CONTINUE: 'Continue',
 };
 
 const BUTTON_ANIMATIONS_ATTRIBUTES = {
@@ -49,12 +50,20 @@ const SHOW_BUTTON = {
 
 const FORM_STEP_INPUT_PLACEHOLDER = ['First name', 'Email Address'];
 const INPUT_NAME = ['firstName', 'emailAddress'];
+const FORM_STEP_TEXTS = {
+  0: "Let's start with the basics. Type in your first name.",
+  1: 'How should we contact you? Type in your email address.',
+  2: (name: string) =>
+    `Thanks, ${name}! Now, it\'s time to get a reality check.\nThis will take 2-3 minutes.`,
+};
 gsap.registerPlugin(useGSAP, TextPlugin);
 
 export const Footer = ({
   onInputChange,
+  onFormStepComplete,
 }: {
   onInputChange: ChangeEventHandler<HTMLInputElement>;
+  onFormStepComplete?: (step: number, value: string) => void;
 }) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const inputContainerRef = useRef<HTMLInputElement>(null);
@@ -76,6 +85,25 @@ export const Footer = ({
 
   const isLastStep = walkthroughStep === 2;
   const lastStepButtonStyles = isLastStep ? LAST_STEP_BUTTON_ATTRIBUTE : {};
+
+  // Form step 2 button styling (white button)
+  const formStep2ButtonStyles =
+    formStep === 2
+      ? {
+          background: '#fafafa',
+          color: '#0c0d10',
+          text: BUTTON_TEXTS.FORM_CONTINUE,
+        }
+      : {};
+
+  const handleFormStepSubmit = (value: string) => {
+    if (onFormStepComplete) {
+      onFormStepComplete(formStep, value);
+    }
+    if (formStep < 2) {
+      setFormStep(formStep + 1);
+    }
+  };
 
   useGSAP(() => {
     if (pageState === PageState.Hero) {
@@ -102,10 +130,19 @@ export const Footer = ({
     }
 
     if (pageState === PageState.Form) {
-      gsap.to(buttonRef.current, { ...HIDE_BUTTON, duration: 0.4 });
-      gsap.to(inputContainerRef.current, { ...SHOW_BUTTON, duration: 0.4 });
+      if (formStep < 2) {
+        gsap.to(buttonRef.current, { ...HIDE_BUTTON, duration: 0.4 });
+        gsap.to(inputContainerRef.current, { ...SHOW_BUTTON, duration: 0.4 });
+      } else {
+        gsap.to(inputContainerRef.current, { ...HIDE_BUTTON, duration: 0.4 });
+        gsap.to(buttonRef.current, {
+          duration: 0.4,
+          ...SHOW_BUTTON,
+          ...formStep2ButtonStyles,
+        });
+      }
     }
-  }, [pageState, walkthroughStep]);
+  }, [pageState, walkthroughStep, formStep]);
 
   useEffect(() => {
     if (pageState === PageState.Form) {
@@ -116,7 +153,6 @@ export const Footer = ({
   const handleCtaClick = () => {
     const isHeroState = pageState === PageState.Hero;
     const isWalkthroughState = pageState === PageState.Walkthrough;
-    const isFormState = pageState === PageState.Form;
 
     if (isHeroState) {
       setPageState(PageState.Walkthrough);
@@ -153,6 +189,7 @@ export const Footer = ({
         className={clsx(styles.ctaElement, styles.ctaInput)}
         placeholder={FORM_STEP_INPUT_PLACEHOLDER[formStep]}
         onChange={onInputChange}
+        onEnterSubmit={handleFormStepSubmit}
         name={INPUT_NAME[formStep]}
       />
     </>

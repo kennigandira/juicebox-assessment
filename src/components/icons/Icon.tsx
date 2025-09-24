@@ -1,6 +1,6 @@
 import { forwardRef, SVGProps } from 'react';
-import { cn } from '@/lib/utils';
 import { BaseIconProps, IconConfig } from './types';
+import clsx from 'clsx';
 
 interface IconProps extends BaseIconProps, Omit<SVGProps<SVGSVGElement>, keyof BaseIconProps> {
   children: React.ReactNode;
@@ -56,7 +56,7 @@ const Icon = forwardRef<SVGSVGElement, IconProps>(
         strokeWidth={config?.useStroke ? strokeWidth : undefined}
         strokeLinecap={config?.useStroke ? 'round' : undefined}
         strokeLinejoin={config?.useStroke ? 'round' : undefined}
-        className={cn(baseClasses, variantClasses[variant], interactiveClasses, className)}
+        className={clsx(baseClasses, variantClasses[variant], interactiveClasses, className)}
         aria-label={ariaLabel}
         aria-hidden={ariaHidden}
         role={role}

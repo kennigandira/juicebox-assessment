@@ -4,11 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectFade } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
-import { gsap } from 'gsap';
-import { Button } from '@/shared/ui';
 import { useStepNavigation } from '@/shared/navigation';
-import { useGSAPAnimation } from '@/shared/animations';
-import { ArrowIcon } from '@/components/icons';
 import styles from '../styles/Walkthrough.module.css';
 
 // Import Swiper styles
@@ -18,11 +14,6 @@ import { parseAsInteger, parseAsStringEnum, useQueryState } from 'nuqs';
 import { QueryState } from '@/global/enums/queryState';
 import { PageState } from '@/global/enums/pageState';
 
-interface WalkthroughSectionProps {
-  onComplete: () => void;
-  onBack?: () => void;
-}
-
 const walkthroughSteps = [
   "Professionals around the world shared how they feel about technology and I've listened. Now it's your turn.",
   "I'll ask you a handful of meaningful questions and compare your responses with people in your industry.",
@@ -31,11 +22,10 @@ const walkthroughSteps = [
 
 const INITIAL_SWIPER_INDEX = 0;
 
-export function WalkthroughSection({ onComplete, onBack }: WalkthroughSectionProps) {
+export function WalkthroughSection() {
   const [swiper, setSwiper] = useState<SwiperType | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const stepIndicatorsRef = useRef<HTMLDivElement>(null);
-  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const [pageState] = useQueryState(
     QueryState.PageState,
@@ -68,38 +58,38 @@ export function WalkthroughSection({ onComplete, onBack }: WalkthroughSectionPro
     }
   }, [pageState, walkthroughStep]);
 
-  // Entrance animations
-  useGSAPAnimation(
-    () => {
-      if (!containerRef.current) return;
+  // // Entrance animations
+  // useGSAPAnimation(
+  //   () => {
+  //     if (!containerRef.current) return;
 
-      const tl = gsap.timeline();
+  //     const tl = gsap.timeline();
 
-      // Animate entrance
-      tl.to(
-        stepIndicatorsRef.current,
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.5,
-          ease: 'power2.out',
-        },
-        '-=0.3'
-      ).to(
-        buttonRef.current,
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.5,
-          ease: 'power2.out',
-        },
-        '-=0.2'
-      );
+  //     // Animate entrance
+  //     tl.to(
+  //       stepIndicatorsRef.current,
+  //       {
+  //         opacity: 1,
+  //         y: 0,
+  //         duration: 0.5,
+  //         ease: 'power2.out',
+  //       },
+  //       '-=0.3'
+  //     ).to(
+  //       buttonRef.current,
+  //       {
+  //         opacity: 1,
+  //         y: 0,
+  //         duration: 0.5,
+  //         ease: 'power2.out',
+  //       },
+  //       '-=0.2'
+  //     );
 
-      return tl;
-    },
-    { scope: containerRef }
-  );
+  //     return tl;
+  //   },
+  //   { scope: containerRef }
+  // );
 
   const handleSlideChange = (swiperInstance: SwiperType) => {
     // Sync step navigation with swiper

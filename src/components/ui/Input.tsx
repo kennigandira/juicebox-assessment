@@ -1,6 +1,6 @@
 import { forwardRef, InputHTMLAttributes } from 'react';
-import { cn } from '@/lib/utils';
 import styles from './Input.module.css';
+import clsx from 'clsx';
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -14,7 +14,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     const inputId = id || (label ? label.toLowerCase().replace(/\s+/g, '-') : undefined);
 
     return (
-      <div className={cn(styles.container, fullWidth && styles.containerFullWidth)}>
+      <div className={clsx(styles.container, fullWidth && styles.containerFullWidth)}>
         {label && (
           <label htmlFor={inputId} className={styles.label}>
             {label}
@@ -24,7 +24,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
         <input
           type={type}
-          className={cn(styles.input, error && styles.inputError, className)}
+          className={clsx(styles.input, error && styles.inputError, className)}
           ref={ref}
           id={inputId}
           aria-invalid={error ? 'true' : 'false'}

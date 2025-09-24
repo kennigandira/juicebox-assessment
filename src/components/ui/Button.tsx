@@ -1,7 +1,6 @@
 import { forwardRef, ButtonHTMLAttributes } from 'react';
-import { cn } from '@/lib/utils';
-import { SpinnerIcon } from '@/components/icons';
 import styles from './Button.module.css';
+import clsx from 'clsx';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
@@ -16,7 +15,6 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       className,
       variant = 'primary',
       size = 'md',
-      loading = false,
       fullWidth = false,
       disabled,
       children,
@@ -26,25 +24,17 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ) => {
     return (
       <button
-        className={cn(
+        className={clsx(
           styles.button,
           styles[variant],
           styles[size],
           fullWidth && styles.fullWidth,
-          loading && styles.loading,
           className
         )}
-        disabled={disabled || loading}
+        disabled={disabled}
         ref={ref}
         {...props}
       >
-        {loading && (
-          <SpinnerIcon
-            size={size === 'sm' ? 'xs' : size === 'lg' ? 'md' : 'sm'}
-            className="mr-2"
-            aria-hidden={true}
-          />
-        )}
         {children}
       </button>
     );
