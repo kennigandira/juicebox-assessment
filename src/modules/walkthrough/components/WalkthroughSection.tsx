@@ -7,7 +7,6 @@ import type { Swiper as SwiperType } from 'swiper';
 import { useStepNavigation } from '@/shared/navigation';
 import styles from '../styles/Walkthrough.module.css';
 
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 import { parseAsInteger, parseAsStringEnum, useQueryState } from 'nuqs';
@@ -56,40 +55,7 @@ export function WalkthroughSection() {
         swiper.slideTo(INITIAL_SWIPER_INDEX);
       }
     }
-  }, [pageState, walkthroughStep]);
-
-  // // Entrance animations
-  // useGSAPAnimation(
-  //   () => {
-  //     if (!containerRef.current) return;
-
-  //     const tl = gsap.timeline();
-
-  //     // Animate entrance
-  //     tl.to(
-  //       stepIndicatorsRef.current,
-  //       {
-  //         opacity: 1,
-  //         y: 0,
-  //         duration: 0.5,
-  //         ease: 'power2.out',
-  //       },
-  //       '-=0.3'
-  //     ).to(
-  //       buttonRef.current,
-  //       {
-  //         opacity: 1,
-  //         y: 0,
-  //         duration: 0.5,
-  //         ease: 'power2.out',
-  //       },
-  //       '-=0.2'
-  //     );
-
-  //     return tl;
-  //   },
-  //   { scope: containerRef }
-  // );
+  }, [pageState, walkthroughStep, swiper]);
 
   const handleSlideChange = (swiperInstance: SwiperType) => {
     // Sync step navigation with swiper

@@ -78,7 +78,7 @@ export function useSmoothScroll() {
         lenis.raf(time * 1000);
       });
     };
-  }, []);
+  }, [pageState]);
 
   useEffect(() => {
     if (pageState !== PageState.Hero) {
