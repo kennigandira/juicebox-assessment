@@ -3,21 +3,11 @@
 import { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { LottieWithGradientMask } from '@/shared/animations';
 import styles from '../styles/Hero.module.css';
-import { parseAsInteger, parseAsStringEnum, useQueryState } from 'nuqs';
+import { parseAsStringEnum, useQueryState } from 'nuqs';
 import { QueryState } from '@/global/enums/queryState';
 import { PageState } from '@/global/enums/pageState';
-
-// Register ScrollTrigger
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
-
-interface HeroAnimationProps {
-  isInWalkthroughMode?: boolean;
-}
 
 const HERO_ANIMATION_TEXTS = [
   'WA businesses feel confident about future growth',
@@ -29,7 +19,7 @@ const HERO_ANIMATION_TEXTS = [
 
 gsap.registerPlugin(useGSAP);
 
-export function HeroAnimation({ isInWalkthroughMode = false }: HeroAnimationProps) {
+export function HeroAnimation() {
   const animationRef = useRef<HTMLDivElement>(null);
   const textContainerRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -37,11 +27,6 @@ export function HeroAnimation({ isInWalkthroughMode = false }: HeroAnimationProp
   const [pageState] = useQueryState(
     QueryState.PageState,
     parseAsStringEnum<PageState>(Object.values(PageState)).withDefault(PageState.Hero)
-  );
-
-  const [walkthroughStep] = useQueryState(
-    QueryState.WalkthroughStep,
-    parseAsInteger.withDefault(0)
   );
 
   useGSAP(() => {

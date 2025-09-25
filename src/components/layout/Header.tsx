@@ -35,10 +35,7 @@ export const Header = () => {
     QueryState.WalkthroughStep,
     parseAsInteger.withDefault(0)
   );
-  const [_formStep, setFormStep] = useQueryState(
-    QueryState.FormStep,
-    parseAsInteger.withDefault(0)
-  );
+  const [, setFormStep] = useQueryState(QueryState.FormStep, parseAsInteger.withDefault(0));
 
   const logoContainerRef = useRef<HTMLDivElement>(null);
   const backButtonRef = useRef<HTMLButtonElement>(null);

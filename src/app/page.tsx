@@ -10,7 +10,7 @@ import { useSmoothScroll } from '@/hooks/useSmoothScroll';
 
 export default function Home() {
   const [formData, setFormData] = useState<CompleteFormData | null>(null);
-  const [_currentFormStep, setCurrentFormStep] = useState(0);
+  const [, setCurrentFormStep] = useState(0);
   useSmoothScroll();
 
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = e => {

@@ -1,3 +1,5 @@
+import { CSSProperties } from 'react';
+
 export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | number;
 
 export type IconColor = 'currentColor' | 'inherit' | string;
@@ -25,7 +27,7 @@ export interface BaseIconProps {
   onClick?: () => void;
   /** Test ID for testing */
   'data-testid'?: string;
-  style?: CSSStyleSheet;
+  style?: CSSProperties;
 }
 
 export interface IconConfig {

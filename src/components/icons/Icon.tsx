@@ -1,10 +1,11 @@
-import { forwardRef, SVGProps } from 'react';
+import { forwardRef, SVGProps, CSSProperties } from 'react';
 import { BaseIconProps, IconConfig } from './types';
 import clsx from 'clsx';
 
 interface IconProps extends BaseIconProps, Omit<SVGProps<SVGSVGElement>, keyof BaseIconProps> {
   children: React.ReactNode;
   config?: IconConfig;
+  style?: CSSProperties;
 }
 
 const ICON_SIZES = {
