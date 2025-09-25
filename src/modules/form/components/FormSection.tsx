@@ -2,8 +2,8 @@
 
 import { useRef, useEffect, useState } from 'react';
 import { useQueryState, parseAsInteger } from 'nuqs';
-import { QueryState } from '@/global/enums/queryState';
 import styles from './Form.module.css';
+import { QueryState } from '@/global/enums/queryState';
 
 const FORM_STEP_TEXTS = {
   0: "Let's start with the basics. Type in your first name.",
@@ -40,7 +40,7 @@ export function FormSection() {
   const stepText = FORM_STEP_TEXTS[formStep as keyof typeof FORM_STEP_TEXTS];
   const getText = () => {
     if (typeof stepText === 'function') {
-      return stepText(formData.firstName || 'there');
+      return stepText(formData.firstName || '');
     }
     return stepText;
   };

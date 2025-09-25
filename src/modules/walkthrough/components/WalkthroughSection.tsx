@@ -4,7 +4,6 @@ import { useState, useRef, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectFade } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
-import { useStepNavigation } from '@/shared/navigation';
 import styles from '../styles/Walkthrough.module.css';
 
 import 'swiper/css';
@@ -12,6 +11,7 @@ import 'swiper/css/effect-fade';
 import { parseAsInteger, parseAsStringEnum, useQueryState } from 'nuqs';
 import { QueryState } from '@/global/enums/queryState';
 import { PageState } from '@/global/enums/pageState';
+import { useStepNavigation } from '../hooks/useStepNavigation';
 
 const walkthroughSteps = [
   "Professionals around the world shared how they feel about technology and I've listened. Now it's your turn.",
