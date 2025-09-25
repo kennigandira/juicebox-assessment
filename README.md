@@ -22,18 +22,15 @@ A modern, interactive web application built with Next.js, featuring smooth anima
 ### 📝 Multi-Step Form
 
 - **Two-Step Process**: First Name → Email Address
-- **Real-time Validation**: Powered by react-hook-form and Zod
+- **Real-time Validation**: Powered by react-hook-form
 - **Accessibility First**: ARIA labels, keyboard navigation, and screen reader support
 - **Progress Tracking**: Visual progress indicator and step completion status
-
-### 🎉 Results Page
-
-- **User Summary**: Complete overview of submitted information
-- **Success Animations**: Celebratory interactions and visual feedback
-- **Reset Functionality**: Option to restart the entire flow
+- **Data Persistence**: Form data preserved in localStorage across navigation
 
 ### ⚡ Enhanced User Experience
 
+- **Single-Page Architecture**: Smooth section transitions without page reloads
+- **URL State Sync**: Browser navigation and deep linking support
 - **Dark Theme Design**: Professional dark interface with purple/blue gradient accents
 - **Lenis Smooth Scrolling**: Buttery smooth scrolling throughout the application
 - **Custom Fonts**: PP Agrandir, Graphik, and Sohne fonts from the provided font package
@@ -42,14 +39,53 @@ A modern, interactive web application built with Next.js, featuring smooth anima
 
 ## 🛠 Technical Stack
 
-- **Framework**: Next.js 15+ with App Router
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS with CSS Variables
+- **Framework**: Next.js 15.5.3 with App Router and Turbopack
+- **Language**: TypeScript 5+
+- **Runtime**: React 19.1.0
+- **Styling**: Tailwind CSS with CSS Variables and Modules
 - **Animations**: GSAP + ScrollTrigger, Lottie-react
-- **Carousel**: Swiper.js
-- **Smooth Scrolling**: Lenis
-- **Form Handling**: React Hook Form + Zod validation
-- **Build Tool**: Turbopack (Next.js)
+- **Carousel**: Swiper.js 12+
+- **Smooth Scrolling**: Lenis (dual implementation)
+- **State Management**: nuqs for URL state synchronization
+- **Form Handling**: React Hook Form
+- **Build Tool**: Turbopack (Next.js native)
+
+## ⚡ State Management Architecture
+
+### URL State Synchronization with nuqs
+
+The application uses **nuqs** for client-side URL state management, enabling:
+
+- **Page Navigation**: Smooth transitions between sections (Hero → Walkthrough → Form)
+- **Tutorial Steps**: URL-synced walkthrough carousel navigation
+- **Form Steps**: Multi-step form progress tracking
+- **Deep Linking**: Direct access to specific sections via URL parameters
+
+### State Structure
+
+```typescript
+// Page States
+enum PageState {
+  Hero = 'hero',
+  Walkthrough = 'walkthrough',
+  Form = 'form',
+}
+
+// Query Parameters
+enum QueryState {
+  PageState = 'pageState',
+  WalkthroughStep = 'walkthroughStep',
+  FormStep = 'formStep',
+}
+```
+
+### Suspense Boundaries
+
+Due to nuqs using `useSearchParams()` internally, components are wrapped in Suspense boundaries:
+
+- **SmoothScrollProvider**: Isolated Suspense wrapper for scroll behavior
+- **Main Content**: Suspense boundary around all page sections
+- **SSR Compatibility**: Proper server-side rendering support
 
 ## 📦 Installation
 
@@ -91,27 +127,54 @@ A modern, interactive web application built with Next.js, featuring smooth anima
 ```
 src/
 ├── app/                          # Next.js App Router
-│   ├── layout.tsx               # Root layout with font loading
-│   ├── page.tsx                 # Main application page
+│   ├── layout.tsx               # Root layout with NuqsAdapter and font loading
+│   ├── page.tsx                 # Main application page with Suspense boundaries
 │   ├── globals.css              # Global styles and CSS variables
 │   └── fonts.ts                 # Custom font configurations
 ├── components/
 │   ├── ui/                      # Reusable UI components
 │   │   ├── Button.tsx           # Accessible button component
-│   │   ├── Input.tsx            # Form input with validation
-│   │   ├── Select.tsx           # Dropdown select component
+│   │   ├── Input.tsx            # Form input component
 │   │   └── index.ts             # Component exports
-│   ├── sections/                # Page sections
-│   │   ├── Hero.tsx             # Homepage hero section
-│   │   ├── Tutorial.tsx         # Swiper tutorial carousel
-│   │   ├── MultiStepForm.tsx    # Multi-step form component
-│   │   └── Results.tsx          # Results and summary page
+│   ├── layout/                  # Layout components
+│   │   ├── Header.tsx           # Site header with navigation
+│   │   └── Footer.tsx           # Site footer with form handling
+│   ├── icons/                   # Icon components and management
+│   │   ├── Icon.tsx             # Main icon component
+│   │   ├── types.ts             # Icon type definitions
+│   │   └── icons/               # Individual icon components
+│   └── providers/
+│       └── SmoothScrollProvider.tsx  # Suspense wrapper for smooth scrolling
+├── modules/                     # Feature-based modules
+│   ├── hero/
+│   │   ├── components/
+│   │   │   ├── HeroAnimation.tsx    # Lottie animation with GSAP
+│   │   │   ├── HeroContent.tsx      # Hero text content
+│   │   │   └── HeroSection.tsx      # Main hero section
+│   │   ├── styles/
+│   │   └── index.ts
+│   ├── walkthrough/
+│   │   ├── components/
+│   │   │   └── WalkthroughSection.tsx # Swiper tutorial carousel
+│   │   ├── hooks/
+│   │   │   └── useStepNavigation.ts   # Step navigation logic
+│   │   ├── styles/
+│   │   └── index.ts
+│   └── form/
+│       ├── components/
+│       │   └── FormSection.tsx      # Form implementation
+│       ├── styles/
+│       └── index.ts
+├── shared/                      # Shared utilities and components
 │   └── animations/
-│       └── LottieAnimation.tsx  # Lottie animation wrapper
+│       └── components/
+│           └── LottieWithGradientMask.tsx
+├── global/                      # Global configurations
+│   └── enums/
+│       ├── pageState.ts         # Page state enumeration
+│       └── queryState.ts        # URL query state keys
 ├── hooks/
-│   └── useSmoothScroll.ts       # Lenis smooth scrolling hook
-├── lib/
-│   └── utils.ts                 # Utility functions
+│   └── useSmoothScroll.ts       # Lenis + GSAP + nuqs integration
 └── public/
     ├── animations/
     │   └── JB2G_Lottie.json     # Provided Lottie animation
@@ -154,31 +217,36 @@ src/
 ### Development
 
 ```bash
-npm run dev
+npm run dev          # Start development server with Turbopack
 ```
 
 ### Production Build
 
 ```bash
-npm run build
+npm run build        # Build for production with Turbopack
 ```
 
 ### Start Production Server
 
 ```bash
-npm start
+npm start           # Start production server
 ```
 
-### Linting
+### Code Quality
 
 ```bash
-npm run lint
+npm run lint        # Run ESLint
+npm run lint:fix    # Fix ESLint issues automatically
+npm run format      # Format code with Prettier
+npm run type-check  # TypeScript type checking
 ```
 
-### Type Checking
+### Testing
 
 ```bash
-npx tsc --noEmit
+npm test            # Run Jest tests
+npm run test:watch  # Run tests in watch mode
+npm run test:coverage # Run tests with coverage report
 ```
 
 ## 🌐 Deployment Options
@@ -209,11 +277,12 @@ The application can be deployed to any platform that supports Node.js applicatio
 
 ### User Flow Testing
 
-1. **Homepage**: Verify Lottie animation loads and GSAP animations trigger
-2. **Tutorial**: Navigate through all slides and click "Get Started"
-3. **Form**: Fill out both steps with validation testing
-4. **Results**: Confirm data display and restart functionality
-5. **Smooth Scrolling**: Test navigation between sections
+1. **Hero Section**: Verify Lottie animation loads and GSAP animations trigger
+2. **Walkthrough Tutorial**: Navigate through all slides using indicators or navigation
+3. **Multi-Step Form**: Fill out both steps (First Name → Email) with validation testing
+4. **URL Navigation**: Test direct navigation to sections via URL parameters
+5. **Smooth Scrolling**: Test scroll behavior and section transitions
+6. **Data Persistence**: Verify form data is preserved in localStorage
 
 ### Accessibility Testing
 
