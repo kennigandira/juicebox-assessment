@@ -1,5 +1,5 @@
-import { ChangeEventHandler, useEffect, useRef } from 'react';
-import { Button } from '../ui';
+import { ChangeEventHandler, useRef } from 'react';
+import { Button, Input } from '../ui';
 import clsx from 'clsx';
 
 import gsap from 'gsap';
@@ -9,7 +9,6 @@ import { parseAsInteger, parseAsStringEnum, useQueryState } from 'nuqs';
 import { PageState } from '@/global/enums/pageState';
 import { QueryState } from '@/global/enums/queryState';
 import { useGSAP } from '@gsap/react';
-import { Input } from '@/shared/ui';
 import { WALKTHROUGH_STEPS_TOTAL } from '@/global/constants';
 
 const BUTTON_TEXTS = {
@@ -50,12 +49,12 @@ const SHOW_BUTTON = {
 
 const FORM_STEP_INPUT_PLACEHOLDER = ['First name', 'Email Address'];
 const INPUT_NAME = ['firstName', 'emailAddress'];
-const FORM_STEP_TEXTS = {
-  0: "Let's start with the basics. Type in your first name.",
-  1: 'How should we contact you? Type in your email address.',
-  2: (name: string) =>
-    `Thanks, ${name}! Now, it\'s time to get a reality check.\nThis will take 2-3 minutes.`,
-};
+// const FORM_STEP_TEXTS = {
+//   0: "Let's start with the basics. Type in your first name.",
+//   1: 'How should we contact you? Type in your email address.',
+//   2: (name: string) =>
+//     `Thanks, ${name}! Now, it\'s time to get a reality check.\nThis will take 2-3 minutes.`,
+// };
 gsap.registerPlugin(useGSAP, TextPlugin);
 
 export const Footer = ({
@@ -143,12 +142,6 @@ export const Footer = ({
       }
     }
   }, [pageState, walkthroughStep, formStep]);
-
-  useEffect(() => {
-    if (pageState === PageState.Form) {
-      inputRef.current?.focus();
-    }
-  }, [pageState]);
 
   const handleCtaClick = () => {
     const isHeroState = pageState === PageState.Hero;

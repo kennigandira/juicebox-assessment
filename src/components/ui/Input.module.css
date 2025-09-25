@@ -1,12 +1,13 @@
 /* Input Component Styles */
-.container {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
 .containerFullWidth {
   width: 100%;
+}
+
+.label {
+  display: block;
+  font-size: 20px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .required {
@@ -16,13 +17,12 @@
 
 .input {
   display: flex;
-  height: 2.5rem;
+  height: 60px;
   width: 100%;
-  border-radius: var(--radius-lg);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  background-color: rgba(255, 255, 255, 0.1);
+  padding: 0 12px;
+  border-radius: 16px;
   backdrop-filter: blur(8px);
-  padding: 0.5rem 0.75rem;
+  font-size: 16px;
   color: white;
   transition:
     border-color var(--transition-normal),
@@ -37,7 +37,7 @@
 .input:focus {
   border-color: var(--color-secondary);
   outline: none;
-  box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.2);
+  /* box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.2); */
 }
 
 .input:disabled {
@@ -56,9 +56,24 @@
 }
 
 .errorMessage {
+  font-size: 0.875rem;
   color: #f87171;
 }
 
 .helpText {
+  font-size: 0.875rem;
   color: rgba(255, 255, 255, 0.6);
+}
+
+.sendButton {
+  position: absolute;
+  width: 31px;
+  height: 31px;
+  background: #ffffff99;
+  border-radius: 31px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: 20px;
+  bottom: 15px;
 }

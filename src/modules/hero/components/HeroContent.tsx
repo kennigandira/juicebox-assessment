@@ -1,7 +1,6 @@
 'use client';
 
 import { useRef } from 'react';
-import { gsap } from 'gsap';
 import styles from '../styles/Hero.module.css';
 
 export function HeroContent() {

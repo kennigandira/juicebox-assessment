@@ -1,17 +1,16 @@
 'use client';
 
-import { ChangeEventHandler, useState } from 'react';
+import { ChangeEventHandler, useState, Suspense } from 'react';
 import { HeroAnimation, HeroSection } from '@/modules/hero';
 import { WalkthroughSection } from '@/modules/walkthrough';
 import { FormSection, CompleteFormData } from '@/modules/form';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
-import { useSmoothScroll } from '@/hooks/useSmoothScroll';
+import { SmoothScrollProvider } from '@/components/providers/SmoothScrollProvider';
 
 export default function Home() {
   const [formData, setFormData] = useState<CompleteFormData | null>(null);
-  const [_currentFormStep, setCurrentFormStep] = useState(0);
-  useSmoothScroll();
+  const [, setCurrentFormStep] = useState(0);
 
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = e => {
     const { name: key, value } = e.target;
@@ -52,12 +51,15 @@ export default function Home() {
 
   return (
     <main className="relative">
-      <Header />
-      <HeroAnimation />
-      <HeroSection />
-      <WalkthroughSection />
-      <FormSection />
-      <Footer onInputChange={handleInputChange} onFormStepComplete={handleFormStepComplete} />
+      <SmoothScrollProvider />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Header />
+        <HeroAnimation />
+        <HeroSection />
+        <WalkthroughSection />
+        <FormSection />
+        <Footer onInputChange={handleInputChange} onFormStepComplete={handleFormStepComplete} />
+      </Suspense>
     </main>
   );
 }
