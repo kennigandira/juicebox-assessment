@@ -5,6 +5,11 @@ import { useQueryState, parseAsInteger } from 'nuqs';
 import styles from './Form.module.css';
 import { QueryState } from '@/global/enums/queryState';
 
+export interface CompleteFormData {
+  firstName?: string;
+  emailAddress?: string;
+}
+
 const FORM_STEP_TEXTS = {
   0: "Let's start with the basics. Type in your first name.",
   1: 'How should we contact you? Type in your email address.',
@@ -15,7 +20,7 @@ const FORM_STEP_TEXTS = {
 export function FormSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const [formStep] = useQueryState(QueryState.FormStep, parseAsInteger.withDefault(0));
-  const [formData, setFormData] = useState<{ firstName?: string; emailAddress?: string }>({});
+  const [formData, setFormData] = useState<CompleteFormData>({});
 
   useEffect(() => {
     const handleStorageChange = () => {

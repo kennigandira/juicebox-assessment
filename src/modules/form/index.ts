@@ -1,1 +1,1 @@
-export { FormSection } from './components/FormSection';
+export { FormSection, type CompleteFormData } from './components/FormSection';
