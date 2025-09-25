@@ -11,7 +11,7 @@ import { PageState } from '@/global/enums/pageState';
 
 const HERO_ANIMATION_TEXTS = [
   'WA businesses feel confident about future growth',
-  'AI can&apos;t replace real creativity',
+  "AI can't replace real creativity",
   'Sales measure true process',
   'Human connection drives WA business',
   'The primary barrier to digital transformation is financial investment',
