@@ -1,73 +1,63 @@
 'use client';
 
-import { useState } from 'react';
-import { Hero } from '@/components/sections/Hero';
-import { Tutorial } from '@/components/sections/Tutorial';
-import { MultiStepForm } from '@/components/sections/MultiStepForm';
-import { Results } from '@/components/sections/Results';
+import { ChangeEventHandler, useState } from 'react';
+import { HeroAnimation, HeroSection } from '@/modules/hero';
+import { WalkthroughSection } from '@/modules/walkthrough';
+import { FormSection, CompleteFormData } from '@/modules/form';
+import { Header } from '@/components/layout/Header';
+import { Footer } from '@/components/layout/Footer';
 import { useSmoothScroll } from '@/hooks/useSmoothScroll';
 
-type FormData = {
-  firstName: string;
-  email: string;
-};
-
-type AppState = 'hero' | 'tutorial' | 'form' | 'results';
-
 export default function Home() {
-  const [currentState, setCurrentState] = useState<AppState>('hero');
-  const [formData, setFormData] = useState<FormData | null>(null);
-  const { scrollTo } = useSmoothScroll();
+  const [formData, setFormData] = useState<CompleteFormData | null>(null);
+  const [_currentFormStep, setCurrentFormStep] = useState(0);
+  useSmoothScroll();
 
-  const handleHeroCtaClick = () => {
-    setCurrentState('tutorial');
-    setTimeout(() => {
-      scrollTo('#tutorial');
-    }, 100);
+  const handleInputChange: ChangeEventHandler<HTMLInputElement> = e => {
+    const { name: key, value } = e.target;
+
+    setFormData(
+      prevData =>
+        ({
+          ...(prevData || {}),
+          [key]: value,
+        }) as CompleteFormData
+    );
   };
 
-  const handleTutorialComplete = () => {
-    setCurrentState('form');
-    setTimeout(() => {
-      scrollTo('#form');
-    }, 100);
-  };
+  const handleFormStepComplete = (step: number, value: string) => {
+    const fieldName = step === 0 ? 'firstName' : 'emailAddress';
 
-  const handleFormComplete = (data: FormData) => {
-    setFormData(data);
-    setCurrentState('results');
-    setTimeout(() => {
-      scrollTo('#results');
-    }, 100);
-  };
+    const updatedFormData = {
+      ...(formData || {}),
+      [fieldName]: value,
+    } as CompleteFormData;
 
-  const handleRestart = () => {
-    setCurrentState('hero');
-    setFormData(null);
-    setTimeout(() => {
-      scrollTo('top');
-    }, 100);
+    setFormData(updatedFormData);
+
+    try {
+      localStorage.setItem('formData', JSON.stringify(updatedFormData));
+      window.dispatchEvent(
+        new CustomEvent('formDataUpdated', {
+          detail: { formData: updatedFormData },
+        })
+      );
+      window.dispatchEvent(new Event('storage'));
+    } catch (error) {
+      console.error('Error saving form data to localStorage:', error);
+    }
+
+    setCurrentFormStep(step + 1);
   };
 
   return (
     <main className="relative">
-      {/* Hero Section */}
-      <Hero onCtaClick={handleHeroCtaClick} />
-
-      {/* Tutorial Section - Show after hero CTA is clicked */}
-      {(currentState === 'tutorial' || currentState === 'form' || currentState === 'results') && (
-        <Tutorial onGetStarted={handleTutorialComplete} />
-      )}
-
-      {/* Multi-step Form Section - Show after tutorial is completed */}
-      {(currentState === 'form' || currentState === 'results') && (
-        <MultiStepForm onComplete={handleFormComplete} />
-      )}
-
-      {/* Results Section - Show after form is completed */}
-      {currentState === 'results' && formData && (
-        <Results formData={formData} onRestart={handleRestart} />
-      )}
+      <Header />
+      <HeroAnimation />
+      <HeroSection />
+      <WalkthroughSection />
+      <FormSection />
+      <Footer onInputChange={handleInputChange} onFormStepComplete={handleFormStepComplete} />
     </main>
   );
 }

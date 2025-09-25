@@ -1,0 +1,1 @@
+export const WALKTHROUGH_STEPS_TOTAL = 2;

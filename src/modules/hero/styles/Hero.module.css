@@ -1,0 +1,255 @@
+/* Hero Component Styles */
+.hero {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  padding-bottom: 8rem;
+}
+
+.contentContainer {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem 1rem 0;
+  filter: drop-shadow(0 -116px 20px rgba(0, 0, 0, 1));
+  position: relative;
+  z-index: 10;
+}
+
+.textContent {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  /* max-width: 42rem; */
+  margin: 0 auto;
+}
+
+.title {
+  color: white;
+  font-weight: 400;
+  line-height: 120%;
+  text-align: center;
+}
+
+.tutorialContent {
+  font-family: var(--font-bagoss);
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 125%;
+  text-align: center;
+}
+
+.titleGradient {
+  background: linear-gradient(90deg, #fabbff 0%, #b179ff 35%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.titleWhite {
+  color: white;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.animationContainer {
+  display: flex;
+  justify-content: center;
+  padding-top: 1rem;
+  filter: drop-shadow(0 0 200px rgba(255, 255, 255, 0.2))
+    drop-shadow(0 0 100px rgba(255, 255, 255, 0.2))
+    drop-shadow(70 30 400px rgba(255, 255, 255, 0.1));
+}
+
+.animationWrapper {
+  transform-origin: top;
+  width: 18rem;
+  height: 18rem;
+  margin: 2rem auto 0;
+  position: fixed;
+  /* margin: 0 auto; */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@media (min-width: 1024px) {
+  .animationWrapper {
+    width: 24rem;
+    height: 24rem;
+    transform-origin: center top;
+  }
+}
+
+.lottieContainer {
+  /* position: relative; */
+  z-index: 10;
+}
+
+.heroAnimationTexts {
+  font-family: var(--font-sohne);
+  font-size: 12px;
+  position: absolute;
+  z-index: 20;
+  width: 100%;
+  height: 100%;
+}
+
+.heroAnimationTexts p:first-child {
+  position: absolute;
+  top: 18px;
+  left: -21px;
+}
+
+.heroAnimationTexts p:nth-child(2) {
+  position: absolute;
+  top: 61px;
+  right: -18px;
+}
+
+.heroAnimationTexts p:nth-child(3) {
+  position: absolute;
+  top: 130px;
+  left: -30px;
+}
+
+.heroAnimationTexts p:nth-child(4) {
+  position: absolute;
+  top: 190px;
+  right: -10px;
+}
+
+.heroAnimationTexts p:nth-child(5) {
+  position: absolute;
+  top: 240px;
+  left: -20px;
+  width: 70%;
+  line-height: 1.3;
+}
+
+.scrollIndicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.scrollArrow {
+  animation: bounce 1s infinite;
+}
+
+.scrollIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: rgba(255, 255, 255, 0.6);
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: none;
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+.stepIndicators {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 2.5rem;
+  opacity: 0;
+}
+
+.stepDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.stepDotActive {
+  background: #cdaaff;
+  box-shadow: 0 0 15px rgba(205, 170, 255, 0.5);
+}
+
+.stepDotInactive {
+  background: rgba(255, 255, 255, 0.3);
+  /* border: 1px solid rgba(255, 255, 255, 0.5); */
+}
+
+.tutorialSwiper {
+  width: 100%;
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+.tutorialSwiper .swiper {
+  width: 100%;
+  height: auto;
+}
+
+.tutorialSwiper .swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.tutorialSwiper .swiper-slide .title {
+  width: 100%;
+  padding: 1rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .logoContainer {
+    top: 1rem;
+    left: 1rem;
+    right: 1rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .refreshButton {
+    width: 36px;
+    height: 36px;
+    padding: 6px;
+  }
+
+  .animationWrapper {
+    width: 18rem;
+    height: 18rem;
+    margin-top: 8rem;
+  }
+}
+
+/* Add screen reader only styles */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

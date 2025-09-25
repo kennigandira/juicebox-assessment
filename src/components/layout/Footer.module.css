@@ -1,0 +1,30 @@
+.ctaElement {
+  font-size: 1rem;
+  font-family: var(--font-sohne);
+  font-weight: 400;
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0px 0px 0px 0px #ffffff57;
+  outline: 0;
+  border: 1px solid #ffffff99;
+  position: fixed;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1.5rem;
+}
+
+.ctaButton {
+  padding: 30px 10px;
+  background: #cdaaff;
+  color: #0c0d10;
+}
+
+.ctaButtonLastStep {
+  background: #fafafa;
+  color: #0c0d10;
+}
+
+.ctaInput {
+  opacity: 0;
+  visibility: hidden;
+}

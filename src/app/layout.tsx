@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import { ppAgrandir, graphik, sohne, bagoss } from './fonts';
 
 export const metadata: Metadata = {
@@ -15,8 +16,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${ppAgrandir.variable} ${graphik.variable} ${sohne.variable} ${bagoss.variable} antialiased`}>
-        {children}
+      <body
+        className={`${ppAgrandir.variable} ${graphik.variable} ${sohne.variable} ${bagoss.variable} antialiased`}
+      >
+        <NuqsAdapter>{children}</NuqsAdapter>
       </body>
     </html>
   );

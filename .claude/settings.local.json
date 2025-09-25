@@ -6,7 +6,13 @@
       "Bash(npx tsc:*)",
       "Bash(npm install:*)",
       "Bash(npm run format:*)",
-      "Bash(npm run lint)"
+      "Bash(npm run lint)",
+      "Read(//Users/user/Downloads/JB Frontend Code Test/**)",
+      "Bash(npm test:*)",
+      "Bash(npm run lint:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm run type-check:*)",
+      "WebFetch(domain:nuqs.dev)"
     ],
     "deny": [],
     "ask": []

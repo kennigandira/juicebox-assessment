@@ -1,0 +1,124 @@
+.formSection {
+  min-height: 100vh;
+  padding: 1.25rem;
+  text-align: center;
+  position: relative;
+}
+
+.container {
+  max-width: 28rem;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 1.875rem;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 1rem;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: 2.25rem;
+  }
+}
+
+.subtitle {
+  font-family: var(--font-bagoss);
+  font-size: 19px;
+  font-weight: 400;
+  color: #fafafa;
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  top: 180px;
+}
+
+.stepIndicators {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.stepIndicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.stepIndicatorActive {
+  background: #8b5cf6;
+  color: white;
+  transform: scale(1.1);
+}
+
+.stepIndicatorCompleted {
+  background: #10b981;
+  color: white;
+}
+
+.stepNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.stepHeader {
+  margin-bottom: 1.5rem;
+}
+
+.stepTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.stepDescription {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .formCard {
+    padding: 1.5rem;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .nextButton {
+    margin-left: 0;
+  }
+
+  .stepIndicators {
+    gap: 0.5rem;
+  }
+
+  .stepIndicator {
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 0.75rem;
+  }
+}
