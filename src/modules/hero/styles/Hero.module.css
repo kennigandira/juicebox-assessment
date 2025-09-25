@@ -71,12 +71,11 @@
 }
 
 .animationWrapper {
-  transform-origin: top;
+  transform-origin: center top;
   width: 18rem;
   height: 18rem;
-  margin: 2rem auto 0;
+  margin: 8rem auto 0;
   position: fixed;
-  /* margin: 0 auto; */
   left: 50%;
   transform: translateX(-50%);
 }
@@ -219,26 +218,17 @@
   overflow-wrap: break-word;
 }
 
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-  .logoContainer {
-    top: 1rem;
-    left: 1rem;
-    right: 1rem;
-    padding: 0.5rem 0.75rem;
-  }
+.logoContainer {
+  top: 1rem;
+  left: 1rem;
+  right: 1rem;
+  padding: 0.5rem 0.75rem;
+}
 
-  .refreshButton {
-    width: 36px;
-    height: 36px;
-    padding: 6px;
-  }
-
-  .animationWrapper {
-    width: 18rem;
-    height: 18rem;
-    margin-top: 8rem;
-  }
+.refreshButton {
+  width: 36px;
+  height: 36px;
+  padding: 6px;
 }
 
 /* Add screen reader only styles */
